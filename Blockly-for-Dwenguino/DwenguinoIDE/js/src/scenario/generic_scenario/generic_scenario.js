@@ -15,6 +15,11 @@ class GenericScenario  extends DwenguinoSimulationScenario {
         BindMethods(this);
     }
 
+    updateScenario(boardstate){
+        this.componentsfactory.updateComponents(boardstate);
+        this.renderer.updateDisplay(boardstate)
+    }
+
     addComponent(type){
         this.componentsfactory.addComponent(type);
         this.renderer.addComponent(type);
