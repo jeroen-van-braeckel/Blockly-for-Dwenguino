@@ -7,15 +7,11 @@ export { Button }
 class Button extends RobotComponent {
 
 
-
-
     constructor(id, pin = 12, boardstate) {
         this.id = id;
         this.pin = pin; //TODO pin conflict?
         this.boardstate = boardstate;
         this._isActive = false;
-        //this.activeImage = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`; //already set in syles.css, use classnames
-        //this.inactiveImage = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
         this.pinNames = {
             digitalPin: "digitalPin"
         }
@@ -28,28 +24,52 @@ class Button extends RobotComponent {
 
 
     //display part
-    draw() {
-/*       
-create in simulation container:
-        <div id="sim_button1" class="sim_element sim_element_button draggable" data-x="197" data-y="165" style="top: 0px; left: 0px; transform: translate(197px, 165px); visibility: visible;">
-            <div>
-                <span id="component_title_button_1">(digitalPin:SW_S)
-                </span>
-            </div>
-            <div id="button_button1_button" class="dwenguino_button" style="height:50px; width:50px"></div>
+    addToCanvas() {
+        /*       
+        create in simulation container:
+        <div id="sim_button1" class="sim_element sim_element_button draggable" data-x="357.4000244140625" data-y="149.79998779296875" style="top: 0px; left: 0px; transform: translate(357.4px, 149.8px); visibility: visible;">
+        <div>
+               <span id="component_title_button_1">(digitalPin:SW_S)
+        </span>
         </div>
-*/
+        <canvas id="sim_button_canvas1" class="sim_canvas button_canvas" width="62" height="62">
+        </canvas>
+        </div>
+        */
 
         parentElement = document.getElementById("sim_container");
-        const buttonElementAttributes = {
-            id: id,
-            width: "50",
-            height: "50"
-        };
 
-        this._button = HtmlElementCreator.createElement("div", buttonElementAttributes);
+        const draggableElementAttributes = {
+            id:id+"_draggable",
+            class:"sim_element sim_element_button draggable",
+            style:"top: 0px; left: 0px; transform: translate(357.4px, 149.8px); visibility: visible;" //todo translate?
+        }
+        draggableElementAttributes.setAttribute("data-x",5);
+        draggableElementAttributes.setAttribute("data-y",5);
+        draggableElement = HtmlElementCreator.createElement("div", this.draggableElementAttributes);
+        parentElement.appendChild(draggableElement);
+        
+        spanDiv = HtmlElementCreator.createElement("div");
+        draggableElement.appendChild(spanDiv);
+        
+        span = HtmlElementCreator.createElement("span");
+        span.textContent = this.pin; //TODO
+        spanDiv.appendChild(span);
 
-        parent.appendChild(this._button);
+
+
+        const canvasElementAttributes = {
+            id:"id",
+            class:"sim_canvas button_canvas",
+            width:"62",
+            height:"62"
+        }
+        canvasElement = HtmlElementCreator.createElement("canvas",this.canvasElementAttributes);
+        draggableElement.appendChild(canvasElement);
+
+
+
+       
         this.update();
     }
 
@@ -66,7 +86,7 @@ create in simulation container:
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate([this._optionsMenuTranslationKey]));
     }
 
-    //update view of button depending on boardstatea
+    //update view of button depending on boardstate
     update() {
 
         if (this.boardstate.getIoPinState(this.pin)) { //if active

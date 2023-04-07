@@ -6,7 +6,9 @@ class HtmlElementCreator {
 static createElement(type, attributes){
 
     element = document.createElement(type);
-    setMultipleAttributesonElement(element, attributes);
+    if(attributes != undefined){
+        setMultipleAttributesonElement(element, attributes);
+    }
     return element;
 }
 
