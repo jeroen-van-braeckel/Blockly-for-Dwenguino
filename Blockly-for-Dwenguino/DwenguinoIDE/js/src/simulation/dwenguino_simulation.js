@@ -5,6 +5,7 @@ import DwenguinoSimulationScenarioRidingRobotWithWall from "../scenario/ridingro
 import DwenguinoSimulationScenarioSpyrograph from "../scenario/spyrograph/dwenguino_simulation_scenario_spyrograph.js"
 import DwenguinoSimulationScenarioPlotter from "../scenario/plotter/dwenguino_simulation_scenario_plotter.js";
 import DwenguinoSimulationScenarioConveyor from "../scenario/conveyor/dwenguino_simulation_scenario_conveyor.js";
+import { DwenguinoSimulationScenarioGeneric } from "../scenario/generic_scenario/dwenguino_simulation_scenario_generic.js";
 
 class DwenguinoSimulation {
     logger = null;
@@ -17,7 +18,8 @@ class DwenguinoSimulation {
             "moving": new DwenguinoSimulationScenarioRidingRobot(logger),
             "wall": new DwenguinoSimulationScenarioRidingRobotWithWall(logger),
             "socialrobot": new DwenguinoSimulationScenarioSocialRobot(logger),
-            "conveyor": new DwenguinoSimulationScenarioConveyor(logger)
+            "conveyor": new DwenguinoSimulationScenarioConveyor(logger),
+            "generic": new DwenguinoSimulationScenarioGeneric(logger)
         };
         this.logger = logger;
         this.workspace = workspace;

@@ -4,6 +4,7 @@ class RobotComponent{
 
     constructor(id){
         this._id = id;
+        this._image = new Image();
     }
 
     reset(){
@@ -45,6 +46,10 @@ class RobotComponent{
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
+    }
+
+    draw(){//implement in component classes
+        console.debug('draw does not have an implementation in the component class');
     }
 
 

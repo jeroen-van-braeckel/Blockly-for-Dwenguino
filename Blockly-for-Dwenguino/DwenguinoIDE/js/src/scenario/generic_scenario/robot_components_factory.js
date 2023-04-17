@@ -16,12 +16,12 @@ class RobotComponentsFactory{
     }
 
 
-    setIsSimulationRunning()
+    setIsSimulationRunning(){}
     getRobot(){
         return this._robot;
     }
 
-    resetSocialRobot(){
+    resetGenericRobot(){
         for(var i = 0; i < this._robot.length; i++){
             this._robot[i].reset();
           }
@@ -118,7 +118,13 @@ class RobotComponentsFactory{
         }
     }
 
-    serialize()
-    deserialize()
+    serialize(){}
+    deserialize(){}
+
+    draw(){
+      for(component in _robot){
+        component.draw();
+      }
+    }
     }
     
