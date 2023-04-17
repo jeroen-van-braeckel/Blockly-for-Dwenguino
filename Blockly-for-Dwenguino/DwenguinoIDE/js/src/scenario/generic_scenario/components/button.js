@@ -6,9 +6,8 @@ export { Button }
 
 class Button extends RobotComponent {
 
-
     constructor(id, pin = 12, boardstate) {
-        this.id = id;
+        super(id);
         this.pin = pin; //TODO pin conflict?
         this.boardstate = boardstate;
         this._isActive = false;
@@ -110,7 +109,7 @@ class Button extends RobotComponent {
 
 
 
-    /*
+    
     draw(button, canvas){
         if (canvas.getContext) {
     
@@ -127,5 +126,5 @@ class Button extends RobotComponent {
             console.log(canvas, "This canvas has no context");
         } 
         
-    }*/
+    }
 }

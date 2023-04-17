@@ -12,17 +12,17 @@ class RobotComponent{
         this._stateUpdated = false;
     }
 
-    initComponent()
-    setIsSimulationRunning()
-    toString()
-    getAllPossiblePins()
+    initComponent(){}
+    setIsSimulationRunning(){}
+    toString(){}
+    getAllPossiblePins(){}
     getId(){
         return this._id;
     }
-    setPin()
-    getPin()
-    getPins()
-    setPins()
+    setPin(){}
+    getPin(){}
+    getPins(){}
+    setPins(){}
     setState(){
         this._state = state;
         this._stateUpdated = true;
@@ -39,8 +39,8 @@ class RobotComponent{
         return this._stateUpdated();
     }
 
-    update()
-    
+    update(){}
+
 
     removeHtml(parent){ //remove all components within child
         while (parent.firstChild) {

@@ -4,17 +4,27 @@
  * container. 
  */
 class SimulationCanvasRenderer {
-    constructor(){
-        this.initializeCanvas();
+    constructor(robotComponentsFactory){
+        this.initializeCanvas(robotComponentsFactory);
     }
 
-    initializeCanvas(robotComponentsFactory, component){
-        let canvasId = component.getCanvasId();
-        let canvas = document.getElementById(canvasId);
-        if(canvas !== null){
-            this.configureCanvasDimensions(canvas);
-            robotComponentsFactory.draw();
+    initializeCanvas(robotComponentsFactory){
+        var components = robotComponentsFactory.getRobot();
+        if(components === undefined || components.length == 0){
+            console.debug("no components have been added to the robot")
         }
+        else{
+            for(component in components){
+                let canvasId = component.getCanvasId();
+                let canvas = document.getElementById(canvasId);
+                if(canvas !== null){
+                    this.configureCanvasDimensions(canvas);
+                    component.draw();
+                }
+            }
+        }
+       
+       
     }
 
       /**

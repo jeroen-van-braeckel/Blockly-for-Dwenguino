@@ -4,7 +4,8 @@ import { EventsEnum } from "../socialrobot/scenario_event.js"
 import DwenguinoSimulationScenario from ".././dwenguino_simulation_scenario.js"
 import {DwenguinoScenarioUtils} from "../socialrobot/dwenguino_scenario_utils.js"
 import SimulationCanvasRenderer from "./simulation_canvas_renderer.js"
-import { TypesEnum, RobotComponentsFactory } from "./robot_components_factory.js"
+import { RobotComponentsFactory } from "./robot_components_factory.js"
+import { TypesEnum } from "../socialrobot/robot_components_factory.js"
 import DwenguinoSimulationDraggable from "../socialrobot/dwenguino_simulation_draggable.js"
 
 export { DwenguinoSimulationScenarioGeneric }
@@ -70,8 +71,8 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
   initSimulationState(boardState) {
     // init superclass
     super.initSimulationState(boardState);
-
-    this.renderer = new SimulationCanvasRenderer();
+    this.robotComponentsFactory = new RobotComponentsFactory(boardState);
+    this.renderer = new SimulationCanvasRenderer(this.robotComponentsFactory);
 
     this.scenarioUtils = new DwenguinoScenarioUtils(this, this._eventBus);
 
@@ -84,7 +85,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
     this._eventBus.addEventListener(EventsEnum.CLEARCANVAS, (canvasId)=>{ this.renderer.clearCanvas(canvasId)});
 
     this._eventBus.registerEvent(EventsEnum.INITIALIZECANVAS);
-    this._eventBus.addEventListener(EventsEnum.INITIALIZECANVAS, (component)=>{ this.renderer.initializeCanvas(this.robotComponentsFactory.getRobot(), component)});
+    this._eventBus.addEventListener(EventsEnum.INITIALIZECANVAS, (component)=>{ this.renderer.initializeCanvas(this.robotComponentsFactory.getRobot())});
 
   }
 
@@ -211,7 +212,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
    */
   updateScenarioDisplay(boardState) {
     super.updateScenarioDisplay(boardState);
-    this.renderer.render(this.robotComponentsFactory.getRobot());
+    this.renderer.draw(this.robotComponentsFactory.getRobot());
   };
 
   renderAudio(boardState){
@@ -310,16 +311,14 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
     this.robotComponentsFactory.resetSocialRobot();
   };
 
-  removeSocialRobotComponents(){
-    this.robotComponentsFactory.removeAllSocialRobotComponents();
-  }
-
+ 
   /**
    * Add a robot component of the specified type to the simulation container.
    * @param {TypesEnum} type 
    */
   addRobotComponent(type) {
     this.robotComponentsFactory.addRobotComponent(type);
+    this.robotComponentsFactory.draw();
   };
 
   /**
@@ -328,8 +327,8 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
    * @param {TypesEnum} type 
    */
   removeRobotComponent(type) {
-    this.robotComponentsFactory.removeRobotComponent(type);
-    this.renderer.render(this.robotComponentsFactory.getRobot());
+    this.robotComponentsFactory.removeRobotComponentByType(type);
+    this.robotComponentsFactory.draw();
   };
 
   /**
@@ -412,6 +411,8 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
    * @param {string} uniqeIdentifier 
    */
   saveRobot(permanent = false, uniqeIdentifier = ""){
+    console.log("robot saved");
+    /* //TODO serialization
     let storageKey = permanent ? "permanentDwenguinoSocialRobot" + uniqeIdentifier : "dwenguinoSocialRobot" + uniqeIdentifier;
     console.log("%c saving robot", "color: green");
     let localStorage = window.localStorage;
@@ -419,6 +420,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
       let robotXml = this.robotToXml();
       localStorage.setItem(storageKey, robotXml)
     }
+    */
   }
 
   /**
@@ -427,6 +429,8 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
    * @param {string} uniqeIdentifier 
    */
   loadRobot(permanent = false, uniqeIdentifier = ""){
+    console.log("robot laoded from memory");
+    /* //TODO serialization
     let storageKey = permanent ? "permanentDwenguinoSocialRobot" + uniqeIdentifier : "dwenguinoSocialRobot" + uniqeIdentifier;
     console.log("%c loading robot", "color: green");
     let localStorage = window.localStorage;
@@ -436,6 +440,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
         this.xmlToRobot(robotXml);
       }
     }
+    */
   }
 
   /**

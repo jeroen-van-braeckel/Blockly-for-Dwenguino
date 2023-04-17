@@ -1,4 +1,6 @@
 import { compose } from "redux";
+import { TypesEnum } from "../socialrobot/robot_components_factory";
+import { Button } from "./components/button";
 
 export {RobotComponentsFactory}
 
@@ -10,13 +12,19 @@ class RobotComponentsFactory{
          this.boardState = boardstate;
     }
 
-    createId(type, ){ //e.g. sim_button_4
+    createId(type){ //e.g. sim_button_4
+      if(this._robot === undefined || this._robot.length == 0){
+       return "sim_" + type + "_" + "1"; 
+    }
+    else{
         number_of_same_type = this._robot.find( component => component.constructor.name == type).length;
         return "sim_" + type + "_" + number_of_same_type; 
     }
+  }
 
 
     setIsSimulationRunning(){}
+
     getRobot(){
         return this._robot;
     }
@@ -54,15 +62,25 @@ class RobotComponentsFactory{
     }
 
     removeRobotComponentByType(type){ //remove last added component
+      console.log("before removing component of type: " + type);//TODO remove
+        console.log(this._robot)//TODO remove
+
+        
         for(var i = this._robot.length -1;i>=0; i--){
-            if (this._robot[i].getType() == type){
-                this._robot[i].remove();
+            if (this._robot[i].getType().toLowerCase() === type){
+                this._robot.splice(i,1);
                 return;
             }
         }
+
+
+        console.log("after removing component of type: " + type);//TODO remove
+        console.log(this._robot)//TODO remove
     }
+
+
     addRobotComponent(type){
-      id = this.createId(type);
+      var id = this.createId(type);
         switch(type){
                 case TypesEnum.SERVO:
                   this.addServo(id);
@@ -86,7 +104,8 @@ class RobotComponentsFactory{
                   this.addTouchSensor(id);
                   break;
                 case TypesEnum.BUTTON:
-                  this.addButton(id, boardstate);
+                  console.log(id); //TODO verwijder
+                  this._robot.push(new Button(id,this.boardState))
                   break;
                 case TypesEnum.PIR:;
                   this.addPir(id);
@@ -122,7 +141,7 @@ class RobotComponentsFactory{
     deserialize(){}
 
     draw(){
-      for(component in _robot){
+      for(let component in this._robot){
         component.draw();
       }
     }
