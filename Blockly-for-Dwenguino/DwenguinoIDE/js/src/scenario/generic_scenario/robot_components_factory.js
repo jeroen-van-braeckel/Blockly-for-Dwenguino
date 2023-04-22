@@ -1,15 +1,19 @@
 import { compose } from "redux";
 import { TypesEnum } from "../socialrobot/robot_components_factory";
 import { Button } from "./components/button";
+import { RobotComponent } from "./components/robot_component";
+import { event } from "jquery";
 
 export {RobotComponentsFactory}
 
 
 class RobotComponentsFactory{
 
-    constructor(boardstate) {
+    constructor(boardstate,logger, eventBus) {
          this._robot = [];
          this.boardState = boardstate;
+         this.logger = logger;
+         this.eventBus = eventBus;
     }
 
     createId(type){ //e.g. sim_button_4
@@ -17,7 +21,7 @@ class RobotComponentsFactory{
        return "sim_" + type + "_" + "1"; 
     }
     else{
-        number_of_same_type = this._robot.find( component => component.constructor.name == type).length;
+        let number_of_same_type = this._robot.filter( component => component.constructor.name.toLowerCase() == type).length +1;
         return "sim_" + type + "_" + number_of_same_type; 
     }
   }
@@ -62,20 +66,12 @@ class RobotComponentsFactory{
     }
 
     removeRobotComponentByType(type){ //remove last added component
-      console.log("before removing component of type: " + type);//TODO remove
-        console.log(this._robot)//TODO remove
-
-        
         for(var i = this._robot.length -1;i>=0; i--){
             if (this._robot[i].getType().toLowerCase() === type){
                 this._robot.splice(i,1);
                 return;
             }
         }
-
-
-        console.log("after removing component of type: " + type);//TODO remove
-        console.log(this._robot)//TODO remove
     }
 
 
@@ -104,8 +100,27 @@ class RobotComponentsFactory{
                   this.addTouchSensor(id);
                   break;
                 case TypesEnum.BUTTON:
-                  console.log(id); //TODO verwijder
-                  this._robot.push(new Button(id,this.boardState))
+                  let knop = new Button(id,this.boardState);
+                  this._robot.push(knop);
+                  this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.BUTTON));
+
+
+                  let pinMapping = {
+                    1: "SW_S",
+                    2: "SW_W",
+                    3: "SW_N",
+                    4: "SW_E",
+                    5: "SW_C"
+                  }
+                  let pins = {};
+                  if (id >= 1 && id <= 5){
+                    pins[SocialRobotButton.pinNames.digitalPin] = pinMapping[id];
+                  }else{
+                    pins[SocialRobotButton.pinNames.digitalPin] = pin + id - 1;
+                  }
+
+                  knop.initDisplayComponent(this.eventBus,  htmlClasses='sim_canvas button_canvas', id,TypesEnum.BUTTON, pins, 
+
                   break;
                 case TypesEnum.PIR:;
                   this.addPir(id);
@@ -141,8 +156,9 @@ class RobotComponentsFactory{
     deserialize(){}
 
     draw(){
-      for(let component in this._robot){
-        component.draw();
+      for(let i=0; i< this._robot.length; i++){
+        console.log(this._robot[i]); //TODO verwijder
+        this._robot[i].draw();
       }
     }
     }

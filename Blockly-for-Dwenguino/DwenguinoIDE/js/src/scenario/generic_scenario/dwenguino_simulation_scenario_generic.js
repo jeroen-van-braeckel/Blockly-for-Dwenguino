@@ -71,7 +71,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
   initSimulationState(boardState) {
     // init superclass
     super.initSimulationState(boardState);
-    this.robotComponentsFactory = new RobotComponentsFactory(boardState);
+    this.robotComponentsFactory = new RobotComponentsFactory(boardState, this.logger, this._eventBus);
     this.renderer = new SimulationCanvasRenderer(this.robotComponentsFactory);
 
     this.scenarioUtils = new DwenguinoScenarioUtils(this, this._eventBus);
@@ -212,7 +212,7 @@ class DwenguinoSimulationScenarioGeneric extends DwenguinoSimulationScenario{
    */
   updateScenarioDisplay(boardState) {
     super.updateScenarioDisplay(boardState);
-    this.renderer.draw(this.robotComponentsFactory.getRobot());
+    this.robotComponentsFactory.draw(this.robotComponentsFactory.getRobot()); //TODO scenario wijzigt niet 
   };
 
   renderAudio(boardState){

@@ -11,6 +11,8 @@ class Button extends RobotComponent {
         this.pin = pin; //TODO pin conflict?
         this.boardstate = boardstate;
         this._isActive = false;
+        let activeImage = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`;
+        let inactiveImage = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
         this.pinNames = {
             digitalPin: "digitalPin"
         }
@@ -22,7 +24,7 @@ class Button extends RobotComponent {
     }
 
 
-    //display part
+    /*display part
     addToCanvas() {
         /*       
         create in simulation container:
@@ -34,7 +36,7 @@ class Button extends RobotComponent {
         <canvas id="sim_button_canvas1" class="sim_canvas button_canvas" width="62" height="62">
         </canvas>
         </div>
-        */
+        
 
         parentElement = document.getElementById("sim_container");
 
@@ -71,6 +73,7 @@ class Button extends RobotComponent {
        
         this.update();
     }
+    */
 
     buttonEvent() {
         this._button.onclick = function () {
@@ -106,10 +109,13 @@ class Button extends RobotComponent {
     }
 
 
+/*
+    <div id="sim_button1" class="sim_element sim_element_button draggable" data-x="5" data-y="5" style="top: 0px; left: 0px; transform: translate(5px, 5px); visibility: visible;"><div><span id="component_title_button_1">(digitalPin:SW_S)
+</span></div><canvas id="sim_button_canvas1" class="sim_canvas button_canvas" width="62" height="62"></canvas></div>
+*/
 
 
-
-    
+    /*
     draw(button, canvas){
         if (canvas.getContext) {
     
@@ -127,4 +133,5 @@ class Button extends RobotComponent {
         } 
         
     }
+    */
 }
