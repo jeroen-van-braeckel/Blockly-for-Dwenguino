@@ -44,7 +44,8 @@ class DwenguinoSimulationDraggable {
       autoScroll: true,
 
       // call this function on every dragmove event
-      onmove: this.dragMoveListener,
+      onmove: function (event){ self.dragMoveListener(event, self._eventBus)}
+      ,
       // call this function on every dragend event
       onend: function (event) {
         var textEl = event.target.querySelector('p')
@@ -60,11 +61,18 @@ class DwenguinoSimulationDraggable {
         }
         data = JSON.stringify(data);
         self.socialRobotScenario.logger.recordEvent(self.socialRobotScenario.logger.createEvent(EVENT_NAMES.moveRobotComponent, data));
+
+        try{
+          self._eventBus.dispatchEvent(EventsEnum.COMPONENTMOVED);
+        }
+        catch(error){
+          console.error("pir is not attached: " + error)
+        }
       }
     })
   }
 
-  dragMoveListener(event) {
+  dragMoveListener(event, eventBus) {
     var target = event.target
     // keep the dragged position in the data-x/data-y attributes
     var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
@@ -78,6 +86,7 @@ class DwenguinoSimulationDraggable {
     // update the position attributes
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
+    eventBus.dispatchEvent(EventsEnum.COMPONENTSTARTEDMOVING); //TODO eventbus is hier undefined?
   }
 
   fireCustomEvent(eventName, element, data) {

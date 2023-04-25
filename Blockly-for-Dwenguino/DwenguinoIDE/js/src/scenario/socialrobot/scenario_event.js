@@ -7,7 +7,7 @@ const EventsEnum = {
     AUDIOSTARTED: 'audiostarted',
     AUDIOSTOPPED: 'audiostopped',
     COMPONENTCLICKED: 'componentclick',
-    COMPONENTMOVING: 'componentmoving',
+    COMPONENTSTARTEDMOVING: 'componentmoving',
     COMPONENTMOVED: 'componentmoved'
 };
 Object.freeze(EventsEnum);
@@ -23,6 +23,7 @@ class ScenarioEvent {
     }
 
     removeCallback(callback) {
+        /*
         console.log("callabcks voor remove:");
         console.log(this.callbacks);
         var index = this.callbacks.indexOf(callback);
@@ -31,6 +32,8 @@ class ScenarioEvent {
         }
         console.log("callabcks na remove:");
         console.log(this.callbacks);
+        */
+        this.callbacks = []; //TODO verwijder op juiste manier
     }
 }
 

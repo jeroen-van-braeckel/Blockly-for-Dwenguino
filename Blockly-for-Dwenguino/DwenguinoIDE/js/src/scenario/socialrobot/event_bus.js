@@ -36,7 +36,6 @@ class EventBus {
      */
     addEventListener(eventName, callback){
         this.events[eventName].registerCallback(callback);
-        console.log(this.events); //TODO VERWIJDER
     };
 
     removeEventListener(eventName, callback){

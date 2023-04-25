@@ -64,35 +64,34 @@ class SocialRobotSoundSensor extends RobotComponent{
 
 
         this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
-            console.log("sound sensor had been STARTED by the buzzer");
-            this.setImage(this._image.src);
-            this.setState(1);
-            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+            this.soundActionCallbacks(1);
         }); //TODO state juist wijzigen
 
                 
         this._eventBus.addEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
-            console.log("sound sensor had been STOPPED by the buzzer");
-            this.setImage(this._image.src);
-            this.setState(0);
-            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+            this.soundActionCallbacks(0);
         }); //TODO state juist wijzigen
 
+    }
+
+    soundActionCallbacks(state){
+        console.log("sound sensor had been set to" + state + "by the buzzer");
+            this.setImage(this._image.src);
+            this.setState(state);
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
     }
 
     removeHtml(){
         super.removeHtml();
         this.getButton().remove();
 
+        //remove eventlisteners
         this._eventBus.removeEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
-            console.log("sound sensor had been removerd");
-            this.setImage(this._image.src);
-            this.setState(1);
-            this._eventBus.dispatchEvent(EventsEnum.SAVE);
-        }); //TODO state juist wijzigen
-
-
-
+            this.soundActionCallbacks(1);
+        });
+        this._eventBus.removeEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
+            this.soundActionCallbacks(0);
+        });
     }
 
     reset(){
