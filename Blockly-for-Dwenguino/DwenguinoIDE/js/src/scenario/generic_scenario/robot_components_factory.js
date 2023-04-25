@@ -119,7 +119,7 @@ class RobotComponentsFactory{
                     pins[SocialRobotButton.pinNames.digitalPin] = pin + id - 1;
                   }
 
-                  knop.initDisplayComponent(this.eventBus,  htmlClasses='sim_canvas button_canvas', id,TypesEnum.BUTTON, pins, 
+                  knop.initDisplayComponent(this.eventBus, htmlClasses='sim_canvas button_canvas', id,TypesEnum.BUTTON, true,50, 50, 5,5) 
 
                   break;
                 case TypesEnum.PIR:;

@@ -38,8 +38,12 @@ class SocialRobotSoundSensor extends RobotComponent{
     }
 
     insertHtml(){
+        /*
+        
         var self = this;
-        this._button.getButtonElement().onclick = function (){
+
+
+        this._button.getButtonElement().onclick = function (){ //trigger door audio-element
             self._button.update();
 
             if (self._button.isActive()) {
@@ -54,12 +58,41 @@ class SocialRobotSoundSensor extends RobotComponent{
                 self._eventBus.dispatchEvent(EventsEnum.SAVE);
             }
         }
+        */
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['soundOptions']));
+       
+
+
+        this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
+            console.log("sound sensor had been STARTED by the buzzer");
+            this.setImage(this._image.src);
+            this.setState(1);
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+        }); //TODO state juist wijzigen
+
+                
+        this._eventBus.addEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
+            console.log("sound sensor had been STOPPED by the buzzer");
+            this.setImage(this._image.src);
+            this.setState(0);
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+        }); //TODO state juist wijzigen
+
     }
 
     removeHtml(){
         super.removeHtml();
         this.getButton().remove();
+
+        this._eventBus.removeEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
+            console.log("sound sensor had been removerd");
+            this.setImage(this._image.src);
+            this.setState(1);
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+        }); //TODO state juist wijzigen
+
+
+
     }
 
     reset(){

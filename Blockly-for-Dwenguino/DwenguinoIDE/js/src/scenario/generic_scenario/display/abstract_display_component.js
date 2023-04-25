@@ -10,7 +10,6 @@ export let DisplayComponent = {
         super.initComponent(eventBus, htmlClasses);
         this._id = id;
         this._type = type;
-        this._pins = pins;
         this._width = width;
         this._height = height;
         this._visible = visible;

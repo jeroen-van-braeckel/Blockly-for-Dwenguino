@@ -93,7 +93,9 @@ class SocialRobotBuzzer extends RobotComponent {
                 this.osc.disconnect(this.audiocontext.destination);
                 this.osc = null;
                 this.audioStarted = false;
-                this.prevTone = 0
+                this.prevTone = 0;
+                //dispatch event for sound sensor
+                this._eventBus.dispatchEvent(EventsEnum.AUDIOSTOPPED);
             }
         }
         // When tone changed, stop current tone and play new one
@@ -108,7 +110,10 @@ class SocialRobotBuzzer extends RobotComponent {
             this.osc.connect(this.audiocontext.destination);
             this.osc.frequency.value = this.tone;
             this.osc.start(this.audiocontext.currentTime);
-            this.audioStarted = true;
+            this.audioStarted = true; 
+            //dispatch event for sound sensor
+            this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
+            
         }
     }
 

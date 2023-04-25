@@ -2,6 +2,7 @@ import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
 import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { EventsEnum } from '../scenario_event.js';
 
 export { SocialRobotTouchSensor }
 
@@ -37,7 +38,7 @@ class SocialRobotTouchSensor extends BinaryInputRobotComponent{
             offsetLeft, 
             offsetTop, 
             htmlClasses);
-        
+
     }
 
     initComponentFromXml(eventBus, id, xml){

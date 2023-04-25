@@ -23,6 +23,8 @@ class SocialRobotButton extends BinaryInputRobotComponent{
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
         let activeImage = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`;
         let inactiveImage = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
+        this.id = id;
+        
         
         super.initComponent(TypesEnum.BUTTON, 
             ['simulator', 'button'], 
@@ -41,6 +43,8 @@ class SocialRobotButton extends BinaryInputRobotComponent{
             offsetLeft, 
             offsetTop, 
             htmlClasses);
+
+            this.click_event();
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -63,6 +67,12 @@ class SocialRobotButton extends BinaryInputRobotComponent{
 
     reset(){
         super.reset();
+    }
+
+    click_event(){
+        let btn = document.getElementById("sim_button_canvas"+this.id);
+        btn.addEventlistener('click',() => console.log(btn)); //TODO change state in the proper way
+        
     }
 
 }

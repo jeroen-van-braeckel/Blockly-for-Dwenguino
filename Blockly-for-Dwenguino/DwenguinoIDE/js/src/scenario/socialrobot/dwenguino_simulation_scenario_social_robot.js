@@ -37,6 +37,7 @@ class DwenguinoSimulationScenarioSocialRobot extends DwenguinoSimulationScenario
     this._eventBus.registerEvent(EventsEnum.SAVE);
     this._eventBus.addEventListener(EventsEnum.SAVE, ()=>{ this.saveRobot()});
 
+
     this.simulationRobotComponents = new DwenguinoSimulationDraggable(this, this._eventBus);
     this.simulationComponentsMenu = new DwenguinoSimulationRobotComponentsMenu(this._eventBus);
 
@@ -242,6 +243,10 @@ class DwenguinoSimulationScenarioSocialRobot extends DwenguinoSimulationScenario
         console.log('Web Audio API is not supported in this browser');
     }
     }
+    //Events to trigger sound-sensor
+    this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
+    this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
+
   }
 
   /**

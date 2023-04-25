@@ -18,8 +18,8 @@ class DwenguinoSimulation {
             "moving": new DwenguinoSimulationScenarioRidingRobot(logger),
             "wall": new DwenguinoSimulationScenarioRidingRobotWithWall(logger),
             "socialrobot": new DwenguinoSimulationScenarioSocialRobot(logger),
-            "conveyor": new DwenguinoSimulationScenarioConveyor(logger),
-            "generic": new DwenguinoSimulationScenarioGeneric(logger)
+            "conveyor": new DwenguinoSimulationScenarioConveyor(logger)
+            //"generic": new DwenguinoSimulationScenarioGeneric(logger)
         };
         this.logger = logger;
         this.workspace = workspace;
