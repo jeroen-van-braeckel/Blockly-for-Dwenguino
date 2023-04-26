@@ -86,7 +86,14 @@ class DwenguinoSimulationDraggable {
     // update the position attributes
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
-    eventBus.dispatchEvent(EventsEnum.COMPONENTSTARTEDMOVING); //TODO eventbus is hier undefined?
+
+    try{
+      eventBus.dispatchEvent(EventsEnum.COMPONENTSTARTEDMOVING); //TODO eventbus is hier undefined?
+    }
+    catch(error){
+    
+    }
+    
   }
 
   fireCustomEvent(eventName, element, data) {

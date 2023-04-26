@@ -14,7 +14,7 @@ class BinaryInputRobotComponent extends RobotComponent {
     }
 
     initComponent(type, buttonInputLabelTranslationKey, optionsMenuTranslationKey, componentName, activeImage, inactiveImage, componentCanvasClass, eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
-        this.createInputButton(type, id, buttonInputLabelTranslationKey);
+        //this.createInputButton(type, id, buttonInputLabelTranslationKey);
         this._optionsMenuTranslationKey = optionsMenuTranslationKey;
         this._activeImageUrl = activeImage;
         this._inactiveImageUrl = inactiveImage;
@@ -22,20 +22,23 @@ class BinaryInputRobotComponent extends RobotComponent {
     }
 
     initComponentFromXml(eventBus, type, buttonInputLabelTranslationKey, optionsMenuTranslationKey, activeImage, inactiveImage, id, xml){
-        this.createInputButton(type, id, buttonInputLabelTranslationKey);
+        //this.createInputButton(type, id, buttonInputLabelTranslationKey);
         this._optionsMenuTranslationKey = optionsMenuTranslationKey;
         this._activeImageUrl = activeImage;
         this._inactiveImageUrl = inactiveImage;
         super.initComponentFromXml(eventBus, inactiveImage, id, xml);
     }
     
+    /*
     createInputButton(type, id, translation_key){
         let label = DwenguinoBlocklyLanguageSettings.translate(translation_key) + " " + id;
         let buttonId = '' + type + id;
         this._button = new Button(buttonId, 'sensor_options', label);
     }
+    */
 
     insertHtml(){
+        /*
         let self = this;
         this._button.getButtonElement().onclick = function (){
             self._button.update();
@@ -52,22 +55,25 @@ class BinaryInputRobotComponent extends RobotComponent {
                 self._eventBus.dispatchEvent(EventsEnum.SAVE);
             }
         }
+        */
 
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate([this._optionsMenuTranslationKey]));
     }
 
     removeHtml(){
         super.removeHtml()
-        this.getButton().remove();
+        //this.getButton().remove();
     }
 
     reset(){
         this.setImage(this._inactiveImageUrl);
         this.setState(this.inactiveValue);
-        this._button.reset();
+        //this._button.reset();
     }
 
+    /*
     getButton(){
         return this._button;
     }
+    */
 }

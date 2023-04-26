@@ -72,17 +72,17 @@ class SocialRobotPir extends BinaryInputRobotComponent {
         this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
         this._eventBus.addEventListener(EventsEnum.COMPONENTSTARTEDMOVING, () => {
             this.setState(1);
-            console.log("components started moving");
+            //console.log("components started moving");
         })
         this._eventBus.addEventListener(EventsEnum.COMPONENTMOVED, () => {
             this.setState(0);
-            console.log("components stopped moving");
+            //console.log("components stopped moving");
         })
     }
 
     removeHtml(){
         super.removeHtml();
-        this._eventBus.removeEventListener(EventsEnum.COMPONENTSTARTEDMOVING);
+        this._eventBus.removeEventListener(EventsEnum.COMPONENTSTARTEDMOVING); //remove PIR eventlisteners
         this._eventBus.removeEventListener(EventsEnum.COMPONENTMOVED);
     }
 

@@ -62,7 +62,8 @@ class SocialRobotSoundSensor extends RobotComponent{
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['soundOptions']));
        
 
-
+        // eventlisteners to provide interaction between components using the eventbus
+        // for sound_sensor, add  this._eventBus.dispatchEvent(EventsEnum.AUDIO...); to noisy components (e.g. buzzer)
         this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
             this.soundActionCallbacks(1);
         }); //TODO state juist wijzigen
