@@ -60,10 +60,10 @@ class SocialRobotTouchSensor extends BinaryInputRobotComponent {
     }
 
 
-    initEventListeners(id) {//register when components are moving to set pir state
-        let ComponentId = "sim_touch" + id;
+    initEventListeners(id) {//register clicks as touch-events 
+        let ComponentId = "sim_touch_canvas" + id;
         console.log(ComponentId);
-        document.getElementById(ComponentId).addEventListener('click', () => {
+        document.getElementById('sim_' + this.getType() + this.getId()).addEventListener('click', () => {
             if (!this.getState()) {
                 this.setImage(this._activeImageUrl);
                 this.setState(this.activeValue);

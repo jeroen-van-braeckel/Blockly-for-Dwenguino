@@ -66,7 +66,7 @@ class DwenguinoSimulationDraggable {
           self._eventBus.dispatchEvent(EventsEnum.COMPONENTMOVED);
         }
         catch(error){
-          console.error("pir is not attached: " + error)
+          //console.error("pir is not attached: " + error); 
         }
       }
     })

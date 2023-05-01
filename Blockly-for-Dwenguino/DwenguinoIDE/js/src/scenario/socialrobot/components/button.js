@@ -44,7 +44,7 @@ class SocialRobotButton extends BinaryInputRobotComponent{
             offsetTop, 
             htmlClasses);
 
-            this.click_event();
+            this.initEventListeners(id);
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -58,6 +58,8 @@ class SocialRobotButton extends BinaryInputRobotComponent{
             inactiveImage,
             id,
             xml);
+
+        this.initEventListeners(id);
     }
 
 
@@ -69,10 +71,22 @@ class SocialRobotButton extends BinaryInputRobotComponent{
         super.reset();
     }
 
-    click_event(){
-        let btn = document.getElementById("sim_button_canvas"+this.id);
-        btn.addEventlistener('click',() => console.log(btn)); //TODO change state in the proper way
-        
+    initEventListeners(id) {//register when components are moving to set pir state
+        let ComponentId = "sim_button_canvas" + id;
+        console.log(ComponentId);
+        document.getElementById(ComponentId).addEventListener('click', () => {
+            if (!this.getState()) {
+                this.setImage(this._activeImageUrl); //TODO image doesnt change
+                this.setState(this.activeValue);
+                this._stateUpdated = true;
+                this._eventBus.dispatchEvent(EventsEnum.SAVE);
+            } else {
+                this.setImage(this._inactiveImageUrl);
+                this.setState(this.inactiveValue);
+                this._stateUpdated = true;
+                this._eventBus.dispatchEvent(EventsEnum.SAVE);
+            }
+        })
     }
 
 }
