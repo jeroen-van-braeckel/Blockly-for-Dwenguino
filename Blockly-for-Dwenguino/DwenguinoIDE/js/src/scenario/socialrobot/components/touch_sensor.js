@@ -3,13 +3,14 @@ import { TypesEnum } from '../robot_components_factory.js';
 import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
 import { EventsEnum } from '../scenario_event.js';
+import { ClickableRobotComponent } from './clickable_robot_component.js';
 
 export { SocialRobotTouchSensor }
 
 /**
  * @extends AbstractRobotComponent
  */
-class SocialRobotTouchSensor extends BinaryInputRobotComponent {
+class SocialRobotTouchSensor extends ClickableRobotComponent {
     static pinNames = {
         digitalPin: "digitalPin"
     }
@@ -59,7 +60,7 @@ class SocialRobotTouchSensor extends BinaryInputRobotComponent {
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     }
 
-
+/*
     initEventListeners(id) {//register clicks as touch-events 
         let ComponentId = "sim_touch_canvas" + id;
         console.log(ComponentId);
@@ -77,4 +78,5 @@ class SocialRobotTouchSensor extends BinaryInputRobotComponent {
             }
         })
     }
+    */
 }

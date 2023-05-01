@@ -5,13 +5,14 @@ import { Button } from '../../utilities/button.js';
 import { RobotComponent } from './robot_component.js';
 import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { ClickableRobotComponent } from './clickable_robot_component.js';
 
 export { SocialRobotButton }
 
 /**
  * @extends AbstractRobotComponent
  */
-class SocialRobotButton extends BinaryInputRobotComponent{
+class SocialRobotButton extends ClickableRobotComponent{
     static pinNames = {
         digitalPin: "digitalPin"
     }
@@ -71,22 +72,5 @@ class SocialRobotButton extends BinaryInputRobotComponent{
         super.reset();
     }
 
-    initEventListeners(id) {//register when components are moving to set pir state
-        let ComponentId = "sim_button_canvas" + id;
-        console.log(ComponentId);
-        document.getElementById(ComponentId).addEventListener('click', () => {
-            if (!this.getState()) {
-                this.setImage(this._activeImageUrl); //TODO image doesnt change
-                this.setState(this.activeValue);
-                this._stateUpdated = true;
-                this._eventBus.dispatchEvent(EventsEnum.SAVE);
-            } else {
-                this.setImage(this._inactiveImageUrl);
-                this.setState(this.inactiveValue);
-                this._stateUpdated = true;
-                this._eventBus.dispatchEvent(EventsEnum.SAVE);
-            }
-        })
-    }
 
 }
