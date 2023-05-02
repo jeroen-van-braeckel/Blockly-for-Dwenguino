@@ -36,6 +36,9 @@ class SocialRobotLed extends RobotComponent{
         this._radius = radius;
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.LED, "led", pins, state, visible, radius, radius, offsetLeft, offsetTop, this._imageUrl, "sim_led_canvas" + id);
         
+
+        this._eventBus.registerEvent(EventsEnum.LIGHTON);
+        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
     initComponentFromXml(eventBus, id, xml) {
@@ -47,6 +50,9 @@ class SocialRobotLed extends RobotComponent{
             this._imageUrl,
             id,
             xml);
+
+            this._eventBus.registerEvent(EventsEnum.LIGHTON);
+            this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
 
@@ -143,4 +149,23 @@ class SocialRobotLed extends RobotComponent{
     getBorderColor() {
         return this._borderColor;
     }
+
+
+    setState(state){
+        super.setState(state);
+        //emit events for light sensor
+        try{
+
+        
+        if(state == 1){
+            this._eventBus.dispatchEvent(EventsEnum.LIGHTON);
+        }
+        else{
+            this._eventBus.dispatchEvent(EventsEnum.LIGHTOFF);
+        }}
+        catch(error){
+            console.log(error);
+        }
+    }
+
 }

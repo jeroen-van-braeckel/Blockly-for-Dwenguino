@@ -6,9 +6,10 @@ const EventsEnum = {
     CLEARCANVAS: 'clearcanvas',
     AUDIOSTARTED: 'audiostarted',
     AUDIOSTOPPED: 'audiostopped',
-    COMPONENTCLICKED: 'componentclick',
     COMPONENTSTARTEDMOVING: 'componentmoving',
-    COMPONENTMOVED: 'componentmoved'
+    COMPONENTMOVED: 'componentmoved',
+    LIGHTON: 'lighton',
+    LIGHTOFF: 'lightoff'
 };
 Object.freeze(EventsEnum);
 

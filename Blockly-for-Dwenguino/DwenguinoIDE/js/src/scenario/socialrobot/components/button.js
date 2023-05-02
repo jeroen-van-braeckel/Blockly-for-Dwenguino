@@ -45,7 +45,7 @@ class SocialRobotButton extends ClickableRobotComponent{
             offsetTop, 
             htmlClasses);
 
-            this.initEventListeners(id);
+            this.initEventListeners(id); //call eventlisteners from ClickableRobotComponent
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -60,7 +60,7 @@ class SocialRobotButton extends ClickableRobotComponent{
             id,
             xml);
 
-        this.initEventListeners(id);
+        this.initEventListeners(id); //call eventlisteners from ClickableRobotComponent
     }
 
 

@@ -76,7 +76,7 @@ class SocialRobotSoundSensor extends RobotComponent{
     }
 
     soundActionCallbacks(state){
-        console.log("sound sensor had been set to" + state + "by the buzzer");
+        //console.log("sound sensor had been set to" + state + "by the buzzer");
             this.setImage(this._image.src);
             this.setState(state);
             this._eventBus.dispatchEvent(EventsEnum.SAVE);

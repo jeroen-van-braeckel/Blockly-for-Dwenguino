@@ -42,6 +42,29 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
             htmlClasses)
     }
 
+    insertHtml(){
+      
+        super.insertHtml();
+       
+        this._eventBus.addEventListener(EventsEnum.LIGHTON, ()=> { 
+            this.lightActionCallbacks(1);
+        }); //TODO state juist wijzigen
+
+                
+        this._eventBus.addEventListener(EventsEnum.LIGHTOFF, ()=> { 
+            this.lightActionCallbacks(0);
+        }); //TODO state juist wijzigen
+
+    }
+
+    lightActionCallbacks(state){
+        console.log("light sensor had been set to" + state);
+            this.setImage(this._image.src);
+            this.setState(state);
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
+    }
+
+
     initComponentFromXml(eventBus, id, xml){
         let label = DwenguinoBlocklyLanguageSettings.translate(['lightSensorSliderLabel']) + " " + id;
         super.initComponentFromXml(eventBus,

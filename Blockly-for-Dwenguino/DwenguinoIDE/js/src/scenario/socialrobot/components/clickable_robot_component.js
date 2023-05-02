@@ -19,22 +19,19 @@ class ClickableRobotComponent extends BinaryInputRobotComponent {
         let ComponentId = 'sim_' + this.getType() + "_canvas" + this.getId();
         document.getElementById(ComponentId).addEventListener('click', () => {
             if(!isMoveAction){
-                if (!this.getState()) {
+                if (this.getState() != this.activeValue) {
                 this.setImage(this._activeImageUrl);
                 this.setState(this.activeValue);
-                this._stateUpdated = true;
-                this._eventBus.dispatchEvent(EventsEnum.SAVE);
             } else {
                 this.setImage(this._inactiveImageUrl);
                 this.setState(this.inactiveValue);
-                this._stateUpdated = true;
-                this._eventBus.dispatchEvent(EventsEnum.SAVE);
             }
+            this._stateUpdated = true;
+            this._eventBus.dispatchEvent(EventsEnum.SAVE);
             }
             else{
                 isMoveAction = false; //reset value for next event
             }
-            
         })
     }
 
