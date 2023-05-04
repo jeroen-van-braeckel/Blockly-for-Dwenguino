@@ -1,6 +1,7 @@
 import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
-import BindMethods from "../../../utils/bindmethods.js"
+import BindMethods from "../../../utils/bindmethods.js";
+import { EventsEnum } from '../scenario_event.js';
 
 export { SocialRobotLedMatrixSegment, DisplayDataTypesEnum }
 
@@ -103,6 +104,11 @@ class SocialRobotLedMatrixSegment extends AbstractRobotComponent{
             this.createComponentOptionsModalDialog(DwenguinoBlocklyLanguageSettings.translate(['ledmatrixOptions']));
             this.showDialog();
         });
+
+        
+
+        this._eventBus.registerEvent(EventsEnum.LIGHTON);
+        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
     removeHtml(){

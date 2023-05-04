@@ -150,22 +150,25 @@ class SocialRobotLed extends RobotComponent{
         return this._borderColor;
     }
 
-
+/* TODO verwijder?
     setState(state){
-        super.setState(state);
-        //emit events for light sensor
-        try{
-
-        
-        if(state == 1){
-            this._eventBus.dispatchEvent(EventsEnum.LIGHTON);
+        let previousState = this.getState();
+        if(state != previousState){
+            super.setState(state);
+            //emit events for light sensor
+            try{
+            if(state == 1){
+                this._eventBus.dispatchEvent(EventsEnum.LIGHTON);
+            }
+            else{
+                this._eventBus.dispatchEvent(EventsEnum.LIGHTOFF);
+            }}
+            catch(error){
+                console.log(error);
+            }
         }
-        else{
-            this._eventBus.dispatchEvent(EventsEnum.LIGHTOFF);
-        }}
-        catch(error){
-            console.log(error);
-        }
+       
     }
+    */
 
 }

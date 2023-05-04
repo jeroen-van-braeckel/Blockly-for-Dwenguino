@@ -31,6 +31,9 @@ class SocialRobotRgbLed extends RobotComponent{
     initComponent(eventBus, id, pins, state, visible, radius, offsetLeft, offsetTop, htmlClasses) {
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.RGBLED, "RGB LED", pins, state, visible, radius, radius, offsetLeft, offsetTop, this._backgroundImageUrl, "sim_rgbled_canvas" + id)
         this._radius = radius;
+
+        this._eventBus.registerEvent(EventsEnum.LIGHTON);
+        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
     initComponentFromXml(eventBus, id, xml) {
@@ -42,6 +45,9 @@ class SocialRobotRgbLed extends RobotComponent{
         this.setPin(xml.getAttribute('RedPin'), SocialRobotRgbLed.pinNames.redPin);
         this.setPin(xml.getAttribute('GreenPin'), SocialRobotRgbLed.pinNames.greenPin);
         this.setPin(xml.getAttribute('BluePin'), SocialRobotRgbLed.pinNames.bluePin);
+
+        this._eventBus.registerEvent(EventsEnum.LIGHTON);
+        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
     insertHtml(){

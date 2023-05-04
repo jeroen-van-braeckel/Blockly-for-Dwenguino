@@ -48,20 +48,23 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
        
         this._eventBus.addEventListener(EventsEnum.LIGHTON, ()=> { 
             this.lightActionCallbacks(1);
-        }); //TODO state juist wijzigen
+        }); 
 
                 
         this._eventBus.addEventListener(EventsEnum.LIGHTOFF, ()=> { 
             this.lightActionCallbacks(0);
-        }); //TODO state juist wijzigen
+        }); 
 
     }
 
     lightActionCallbacks(state){
-        console.log("light sensor had been set to" + state);
+        //console.log("light sensor had been set to " + state);
+           if(state != this.getState()){
             this.setImage(this._image.src);
             this.setState(state);
             this._eventBus.dispatchEvent(EventsEnum.SAVE);
+           }
+        
     }
 
 

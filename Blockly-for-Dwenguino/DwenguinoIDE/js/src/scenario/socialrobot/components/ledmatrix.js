@@ -102,6 +102,8 @@ class SocialRobotLedMatrix extends AbstractRobotComponent{
             this.createComponentOptionsModalDialog(DwenguinoBlocklyLanguageSettings.translate(['ledmatrixOptions'])); 
             this.showDialog();
         });
+
+
     }
 
     removeHtml(){
