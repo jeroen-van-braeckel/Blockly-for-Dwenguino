@@ -68,11 +68,10 @@ class SocialRobotPir extends BinaryInputRobotComponent {
     }
 
     initEventListeners() {//register when components are moving to set pir state
-        this._eventBus.registerEvent(EventsEnum.COMPONENTSTARTEDMOVING);//change state to active
+        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
         this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
-        this._eventBus.addEventListener(EventsEnum.COMPONENTSTARTEDMOVING, () => {
+        this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
             this.setState(1);
-            //console.log("components started moving");
         })
         this._eventBus.addEventListener(EventsEnum.COMPONENTMOVED, () => {
             this.setState(0);
@@ -82,7 +81,7 @@ class SocialRobotPir extends BinaryInputRobotComponent {
 
     removeHtml(){
         super.removeHtml();
-        this._eventBus.removeEventListener(EventsEnum.COMPONENTSTARTEDMOVING); //remove PIR eventlisteners
+        this._eventBus.removeEventListener(EventsEnum.COMPONENTSMOVING); //remove PIR eventlisteners
         this._eventBus.removeEventListener(EventsEnum.COMPONENTMOVED);
     }
 

@@ -35,6 +35,9 @@ class SocialRobotSonar extends RobotComponent{
         
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SONAR, 'sonar', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/board/sonar.png`, 'sim_sonar_canvas' + id);
         
+
+        this.initEventListeners();
+        console.log("offsetLeft: " + this.offsetLeft + "width" + this.getWidth() +"top"+ this.getOffset() + ",height:" + this.getHeight());
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -51,6 +54,8 @@ class SocialRobotSonar extends RobotComponent{
         }
 
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/board/sonar.png`, id, xml);
+
+        this.initEventListeners();
     }
 
 
@@ -63,6 +68,12 @@ class SocialRobotSonar extends RobotComponent{
             self._slider.updateValueLabel(this.value);
         }
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['sonarOptions']));
+
+
+       
+    var rotateId = "rotateIcon"+ this.getId();
+      $('#sim_sonar1').append("<i id='"+ rotateId + "' style='font-size:15px' class='fa'></i>");
+      document.getElementById(rotateId).addEventListener('click', this.rotate);
     }
 
     changeSonarDistance(value) {
@@ -85,5 +96,56 @@ class SocialRobotSonar extends RobotComponent{
     reset() {
         super.reset();
         this.getSlider().reset();
+    }
+
+
+
+    initEventListeners() {//register when components are moving to set pir state
+        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
+        this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
+        this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
+            //TODO meet afstand to eerstvolgende component
+        })
+        this._eventBus.addEventListener(EventsEnum.COMPONENTMOVED, () => {
+           //this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_turned.png`)
+            //TODO stop met meten
+            
+        })
+    }
+
+
+    rotate() {
+        console.log("rotate called");
+        var canvas = document.getElementById("sim_sonar_canvas" +this._id);
+        var ctx = canvas.getContext("2d");
+
+        
+        canvas.width = 200;
+        canvas.height = 200;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        /*
+        var tempWidth = canvas.width;
+        canvas.width = canvas.height;
+        canvas.height = tempWidth;
+        */
+
+        // save the unrotated ctx of the canvas so we can restore it later
+        // the alternative is to untranslate & unrotate after drawing
+        ctx.save();
+    
+        // move to the center of the canvas
+        ctx.translate(canvas.width/2,canvas.height/2);
+    
+        // rotate the canvas to the specified degrees
+        ctx.rotate(90*Math.PI/180);
+    
+        // draw the image
+        // since the ctx is rotated, the image will be rotated also
+        ctx.drawImage(this.getImage(),-this.getImage().width/2,-this.getImage().width/2);
+        
+        // we’re done with the rotating so restore the unrotated ctx
+        ctx.restore();
+        console.log("rotate done");
     }
 }

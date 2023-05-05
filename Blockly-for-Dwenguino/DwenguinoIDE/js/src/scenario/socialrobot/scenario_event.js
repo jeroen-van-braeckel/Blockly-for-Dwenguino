@@ -6,7 +6,7 @@ const EventsEnum = {
     CLEARCANVAS: 'clearcanvas',
     AUDIOSTARTED: 'audiostarted',
     AUDIOSTOPPED: 'audiostopped',
-    COMPONENTSTARTEDMOVING: 'componentmoving',
+    COMPONENTSMOVING: 'componentmoving',
     COMPONENTMOVED: 'componentmoved',
     LIGHTON: 'lighton',
     LIGHTOFF: 'lightoff'
