@@ -18,6 +18,8 @@ class SocialRobotSonar extends RobotComponent{
     constructor(){
         super();
         BindMethods(this);
+
+        this.rotateCount = 0; //to continue rotating in multiples of 90°
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
@@ -37,7 +39,7 @@ class SocialRobotSonar extends RobotComponent{
         
 
         this.initEventListeners();
-        console.log("offsetLeft: " + this.offsetLeft + "width" + this.getWidth() +"top"+ this.getOffset() + ",height:" + this.getHeight());
+        console.log("offsetLeft: " + this.offsetLeft + "width" + this.getWidth() +"top"+ this.getOffset() + ",height:" + this.getHeight()); //TODO verwijder
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -70,9 +72,12 @@ class SocialRobotSonar extends RobotComponent{
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['sonarOptions']));
 
 
-       
+    // add a rotate icon to rotate the sonar sensor t the measured place    
+    var divId = "sim_sonar" + this.getId();
     var rotateId = "rotateIcon"+ this.getId();
-      $('#sim_sonar1').append("<i id='"+ rotateId + "' style='font-size:15px' class='fa'></i>");
+
+      //document.getElementById(divId)
+      $('#'+divId).append("<i id='"+ rotateId + "' style='font-size:15px' class='fa'></i>");
       document.getElementById(rotateId).addEventListener('click', this.rotate);
     }
 
@@ -115,14 +120,16 @@ class SocialRobotSonar extends RobotComponent{
 
 
     rotate() {
+        this.rotateCount++
         console.log("rotate called");
         var canvas = document.getElementById("sim_sonar_canvas" +this._id);
         var ctx = canvas.getContext("2d");
 
-        
-        canvas.width = 200;
-        canvas.height = 200;
         ctx.clearRect(0,0,canvas.width,canvas.height);
+        var tempWidth = canvas.width;
+        canvas.width = canvas.height;
+        canvas.height = tempWidth;
+        
 
         /*
         var tempWidth = canvas.width;
@@ -133,17 +140,18 @@ class SocialRobotSonar extends RobotComponent{
         // save the unrotated ctx of the canvas so we can restore it later
         // the alternative is to untranslate & unrotate after drawing
         ctx.save();
-    
+
         // move to the center of the canvas
         ctx.translate(canvas.width/2,canvas.height/2);
     
         // rotate the canvas to the specified degrees
-        ctx.rotate(90*Math.PI/180);
+        ctx.rotate(this.rotateCount*90*Math.PI/180);
     
         // draw the image
         // since the ctx is rotated, the image will be rotated also
-        ctx.drawImage(this.getImage(),-this.getImage().width/2,-this.getImage().width/2);
-        
+        var width = this.getImage().width;
+        var height = this.getImage().height;
+        ctx.drawImage(this.getImage(),-width/2,-height/2, width, height);
         // we’re done with the rotating so restore the unrotated ctx
         ctx.restore();
         console.log("rotate done");
