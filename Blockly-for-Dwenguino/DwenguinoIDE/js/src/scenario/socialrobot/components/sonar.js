@@ -5,7 +5,14 @@ import { Slider } from '../../utilities/slider.js'
 import { RobotComponent } from './robot_component.js'
 import BindMethods from "../../../utils/bindmethods.js"
 
-export { SocialRobotSonar }
+export { SocialRobotSonar, SonarEnum}
+
+const SonarEnum = {
+    NORTH: 'N',
+    EAST: 'E',
+    SOUTH: 'S',
+    WEST: 'W'
+  };
 
 /**
  * @extends RobotComponent
@@ -58,6 +65,7 @@ class SocialRobotSonar extends RobotComponent {
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, id, xml);
 
         this.initEventListeners();
+        console.log(this);
     }
 
 
@@ -103,6 +111,11 @@ class SocialRobotSonar extends RobotComponent {
         this.getSlider().reset();
     }
 
+    getOrientation(){ //returns in which direction the sensor is currently pointing
+        const values = Object.values(SonarEnum);
+        return values[this.rotateCount%4];
+    }
+
 
 
     initEventListeners() {//register when components are moving to set pir state
@@ -126,58 +139,20 @@ class SocialRobotSonar extends RobotComponent {
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
         this.rotateCount++;
-        switch (this.rotateCount % 4) {
-            case 0:
-                this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_NORD.png`);
+        switch (this.getOrientation()) {
+            case SonarEnum.NORTH:
+                this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_NORTH.png`);
                 break;
-            case 1:
+            case SonarEnum.EAST:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_EAST.png`);
                 break;
-            case 2:
+            case SonarEnum.SOUTH:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_SOUTH.png`);
                 break;
-            case 3:
+            case SonarEnum.WEST:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_WEST.png`);
                 break;
         }
-        /*
-        console.log("rotate called");
-        var canvas = document.getElementById("sim_sonar_canvas" +this._id);
-        var ctx = canvas.getContext("2d");
-
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        var tempWidth = canvas.width;
-        canvas.width = canvas.height;
-        canvas.height = tempWidth;
-        
-
-        /*
-        var tempWidth = canvas.width;
-        canvas.width = canvas.height;
-        canvas.height = tempWidth;
-        
-
-        // save the unrotated ctx of the canvas so we can restore it later
-        // the alternative is to untranslate & unrotate after drawing
-        ctx.save();
-
-        // move to the center of the canvas
-        ctx.translate(canvas.width/2,canvas.height/2);
-    
-        // rotate the canvas to the specified degrees
-        ctx.rotate(this.rotateCount*90*Math.PI/180);
-    
-        // draw the image
-        // since the ctx is rotated, the image will be rotated also
-        var width = this.getImage().width;
-        var height = this.getImage().height;
-        width = this.getWidth();
-        height = this.getHeight();
-        ctx.drawImage(this.getImage(),-width/2,-height/2, width, height);
-        // we’re done with the rotating so restore the unrotated ctx
-        ctx.restore();
-        console.log("rotate done");
-
-        */
+      
     }
 }

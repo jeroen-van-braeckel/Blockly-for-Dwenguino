@@ -915,6 +915,8 @@ class RobotComponentsFactory {
     this._robot.push(sonar);
 
     this.renderer.initializeCanvas(this._robot, sonar);
+
+    console.log(this._robot);
   }
 
   addSonarFromXml(xml) {
