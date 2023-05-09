@@ -45,7 +45,6 @@ class SocialRobotSonar extends RobotComponent {
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SONAR, 'sonar', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, 'sim_sonar_canvas' + id);
 
 
-        this.initEventListeners();
         console.log("offsetLeft: " + this.offsetLeft + "width" + this.getWidth() + "top" + this.getOffset() + ",height:" + this.getHeight()); //TODO verwijder
     }
 
@@ -64,7 +63,6 @@ class SocialRobotSonar extends RobotComponent {
 
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, id, xml);
 
-        this.initEventListeners();
         console.log(this);
     }
 
@@ -115,23 +113,6 @@ class SocialRobotSonar extends RobotComponent {
         const values = Object.values(SonarEnum);
         return values[this.rotateCount%4];
     }
-
-
-
-    initEventListeners() {//register when components are moving to set pir state
-        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
-        this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
-        this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
-            //TODO meet afstand to eerstvolgende component
-        })
-        this._eventBus.addEventListener(EventsEnum.COMPONENTMOVED, () => {
-            //this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_turned.png`)
-            //TODO stop met meten
-
-        })
-    }
-
-
     rotate() {
         var canvas = document.getElementById("sim_sonar_canvas" +this._id);
         var ctx = canvas.getContext("2d");
@@ -153,6 +134,6 @@ class SocialRobotSonar extends RobotComponent {
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_WEST.png`);
                 break;
         }
-      
+        this._eventBus.dispatchEvent(EventsEnum.DISTANCECHANGED, this);
     }
 }

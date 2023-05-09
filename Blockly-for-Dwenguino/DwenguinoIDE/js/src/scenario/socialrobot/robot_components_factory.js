@@ -17,6 +17,7 @@ import { SocialRobotButton } from "./components/button.js"
 import { SocialRobotLedMatrix } from "./components/ledmatrix.js"
 import { SocialRobotLedMatrixSegment } from "./components/ledmatrix_segment.js"
 import { SocialRobotBuzzer } from "./components/buzzer.js"
+import { SonarDistance } from "./sonar_distance.js";
 
 
 export { TypesEnum as TypesEnum, RobotComponentsFactory }
@@ -65,6 +66,7 @@ class RobotComponentsFactory {
     this._numberOfComponentsOfType = {};
     this.scenarioUtils = scenarioUtils;
     this.renderer = new SimulationCanvasRenderer();
+    this.sonarDistance = new SonarDistance(this._robot, this._eventBus);
 
     for (const [type, t] of Object.entries(TypesEnum)) {
       this._numberOfComponentsOfType[t] = 0;
@@ -154,15 +156,17 @@ class RobotComponentsFactory {
           state = dwenguinoState.getIoPinState(dataPin);
           this._robot[i].setState(state);
           break;
+
         case TypesEnum.LEDMATRIXSEGMENT:
+
           let segmentDataPin = this._robot[i].getDataPin();
           state = dwenguinoState.getIoPinState(segmentDataPin);
           this._robot[i].setState(state);
 
 
-          console.log(state.data[1]);///TODO undefined maar in chrome-console wel mogelijk?
- /*
-          console.log(state);
+          //console.log(state.data[1]);///TODO undefined maar in chrome-console wel mogelijk?
+
+          /*
           var stateArray = state.data[1];
           var sum = 0;
           for (var i = 0; i < stateArray.length; i++) { //TODO op juiste manier itereren
@@ -171,9 +175,11 @@ class RobotComponentsFactory {
               sum += stateArray[i][j];
           }
           }
+         
           console.log(sum);
           lightsArray.push(sum);
-         */ 
+        
+        */
 
           break;
         case TypesEnum.TOUCH:
@@ -230,12 +236,12 @@ class RobotComponentsFactory {
 
     //console.log(lightsArray);
     if (lightsArray.reduce((accumulator, currentValue) => accumulator + currentValue,
-    0) > 0) {
+      0) > 0) {
       try {
         this._eventBus.dispatchEvent(EventsEnum.LIGHTON);
       }
       catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
     else {
@@ -243,7 +249,7 @@ class RobotComponentsFactory {
         this._eventBus.dispatchEvent(EventsEnum.LIGHTOFF);
       }
       catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
   }
@@ -916,7 +922,15 @@ class RobotComponentsFactory {
 
     this.renderer.initializeCanvas(this._robot, sonar);
 
-    console.log(this._robot);
+    //this.sonarDistance.updateDistance(sonar);
+    try {
+      this._eventBus.dispatchEvent(EventsEnum.SONARDISTANCECHANGED, sonar);
+    }
+    catch (error) {
+      console.log('error');
+
+    }
+
   }
 
   addSonarFromXml(xml) {
@@ -929,6 +943,7 @@ class RobotComponentsFactory {
     this._robot.push(sonar);
 
     this.renderer.initializeCanvas(this._robot, sonar);
+    this.sonarDistance.updateDistance(sonar);
   }
 
   /**

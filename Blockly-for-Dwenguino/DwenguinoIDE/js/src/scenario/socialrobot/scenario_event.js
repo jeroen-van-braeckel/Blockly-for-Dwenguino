@@ -9,7 +9,8 @@ const EventsEnum = {
     COMPONENTSMOVING: 'componentmoving',
     COMPONENTMOVED: 'componentmoved',
     LIGHTON: 'lighton',
-    LIGHTOFF: 'lightoff'
+    LIGHTOFF: 'lightoff',
+    DISTANCECHANGED:'distancechanged'
 };
 Object.freeze(EventsEnum);
 
@@ -20,6 +21,7 @@ class ScenarioEvent {
     }
 
     registerCallback(callback) {
+        console.log('calback registered '+ callback);
         this.callbacks.push(callback);
     }
 
