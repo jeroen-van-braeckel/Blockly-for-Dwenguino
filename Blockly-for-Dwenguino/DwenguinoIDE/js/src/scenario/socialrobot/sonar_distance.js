@@ -46,28 +46,24 @@ class SonarDistance {
         var upperBorder = sonarCanvas.getBoundingClientRect()['top'];
         var lowerBorder = sonarCanvas.getBoundingClientRect()['bottom'];
 
-
-
         switch (orientation) {
             case SonarEnum.NORTH:
-
                 this._robot.forEach((robotComponent) => {
                     var canvasId;
-                    if (robotComponent.getCanvasId()) {
+                    var canvasId;
+                    try{
                         canvasId = robotComponent.getCanvasId()
                     }
-                    else { // lcd  doesn't use a canvas 
+                    catch{
                         if (robotComponent.constructor.name === 'SocialRobotLcd') {
-                            canvasId = 'sim_element_lcd_img'//TODO voor componenten die niet afleiden van abstractrobotcomponent
+                            canvasId = 'sim_element_lcd_img'
                         }
                         else {
                             console.log("unknown component");
                         }
-
                     }
-
                     robotComponent = document.getElementById(canvasId); //get html-element to use getBoundingClientRect() function
-
+                    
                     //save all borders of the robotcomponent
                     let robotComponentLeftBorder = robotComponent.getBoundingClientRect()['left'];
                     let robotComponentRightBorder = robotComponent.getBoundingClientRect()['right'];
@@ -89,19 +85,92 @@ class SonarDistance {
                 break;
 
             case SonarEnum.EAST:
+
                 this._robot.forEach((robotComponent) => {
-                    if (robotComponent.offsetLeft > sonar.offsetLeft) {
-                        return 24; //TODO
+                    var canvasId;
+                    var canvasId;
+                    try{
+                        canvasId = robotComponent.getCanvasId()
+                    }
+                    catch{
+                        if (robotComponent.constructor.name === 'SocialRobotLcd') {
+                            canvasId = 'sim_element_lcd_img'
+                        }
+                        else {
+                            console.log("unknown component");
+                        }
+                    }
+                    robotComponent = document.getElementById(canvasId); //get html-element to use getBoundingClientRect() function
+                    
+                    //save all borders of the robotcomponent
+                    let robotComponentLeftBorder = robotComponent.getBoundingClientRect()['left'];
+                    let robotComponentRightBorder = robotComponent.getBoundingClientRect()['right'];
+                    let robotComponentUpperBorder = robotComponent.getBoundingClientRect()['top'];
+                    let robotComponentLowerBorder = robotComponent.getBoundingClientRect()['bottom'];
+
+                    if (robotComponentRightBorder > rightBorder) { //select all components in the right direction
+                        if ((robotComponentUpperBorder <= upperBorder && robotComponentLowerBorder < lowerBorder) || //if component starts above the sonar but has overlay with the sonar
+                            (robotComponentLowerBorder > upperBorder && robotComponentUpperBorder < lowerBorder) ||  //if component ends below but has overlay with the sonar
+                            (robotComponentUpperBorder < upperBorder && robotComponentLowerBorder > lowerBorder)) { //if component is wider than sonar & starts more to the left and ends more to the right
+
+                            if (( robotComponentLeftBorder - rightBorder) < minDistance) {
+                                minDistance = robotComponentLeftBorder - rightBorder;
+                            }
+                        }
                     }
                 });
+                return minDistance;
                 break;
-            case SonarEnum.SOUTH:
-                this._robot.forEach((robotComponent) => {
-                    if (robotComponent.offsetTop > sonar.offsetTop) {
-                        return 25; //TODO
+
+
+            case SonarEnum.SOUTH: 
+            this._robot.forEach((robotComponent) => {
+                var canvasId;
+                try{
+                    canvasId = robotComponent.getCanvasId()
+                }
+                catch{
+                    if (robotComponent.constructor.name === 'SocialRobotLcd') {
+                        canvasId = 'sim_element_lcd_img'//TODO voor componenten die niet afleiden van abstractrobotcomponent
                     }
-                });
-                break;
+                    else {
+                        console.log("unknown component");
+                    }
+                }
+/*
+                if (robotComponent.getCanvasId()) {
+                    canvasId = robotComponent.getCanvasId()
+                }
+                else { // lcd  doesn't use a canvas 
+                    if (robotComponent.constructor.name === 'SocialRobotLcd') {
+                        canvasId = 'sim_element_lcd_img'//TODO voor componenten die niet afleiden van abstractrobotcomponent
+                    }
+                    else {
+                        console.log("unknown component");
+                    }
+                }
+                */
+                robotComponent = document.getElementById(canvasId); //get html-element to use getBoundingClientRect() function
+                
+                //save all borders of the robotcomponent
+                let robotComponentLeftBorder = robotComponent.getBoundingClientRect()['left'];
+                let robotComponentRightBorder = robotComponent.getBoundingClientRect()['right'];
+                let robotComponentUpperBorder = robotComponent.getBoundingClientRect()['top'];
+                let robotComponentLowerBorder = robotComponent.getBoundingClientRect()['bottom'];
+
+                if (robotComponentLowerBorder > lowerBorder) { //select all components in the right direction
+                    if ((robotComponentLeftBorder >= leftBorder && robotComponentLeftBorder < rightBorder) || //if component start more to the left but has overlay with the sonar
+                        (robotComponentRightBorder > leftBorder && robotComponentRightBorder < rightBorder) ||  //if component end more to the right but has overlay with the sonar
+                        (robotComponentLeftBorder < leftBorder && robotComponentRightBorder > rightBorder)) { //if component is wider than sonar & starts more to the left and ends more to the right
+
+                        if ((robotComponentUpperBorder - lowerBorder) < minDistance) {
+                            minDistance = robotComponentUpperBorder - lowerBorder;
+                        }
+                    }
+                }
+            });
+            return minDistance;
+            break;
             case SonarEnum.WEST:
                 this._robot.forEach((robotComponent) => {
                     if (robotComponent.offsetLeft < sonar.offsetLeft) {
