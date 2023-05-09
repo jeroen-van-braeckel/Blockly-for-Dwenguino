@@ -2,6 +2,7 @@ import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
 import { RobotComponent } from './robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { EventsEnum } from '../scenario_event.js';
 
 export { SocialRobotRgbLed }
 
