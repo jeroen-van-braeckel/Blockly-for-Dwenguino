@@ -18,6 +18,7 @@ import { SocialRobotLedMatrix } from "./components/ledmatrix.js"
 import { SocialRobotLedMatrixSegment } from "./components/ledmatrix_segment.js"
 import { SocialRobotBuzzer } from "./components/buzzer.js"
 import { SonarDistance } from "./sonar_distance.js";
+import { emptyArray } from "@microsoft/fast-element";
 
 
 export { TypesEnum as TypesEnum, RobotComponentsFactory }
@@ -162,24 +163,101 @@ class RobotComponentsFactory {
           let segmentDataPin = this._robot[i].getDataPin();
           state = dwenguinoState.getIoPinState(segmentDataPin);
           this._robot[i].setState(state);
-
-
-          //console.log(state.data[1]);///TODO undefined maar in chrome-console wel mogelijk?
+          console.log(state);
 
           /*
-          var stateArray = state.data[1];
-          var sum = 0;
-          for (var i = 0; i < stateArray.length; i++) { //TODO op juiste manier itereren
-            console.log(stateArray[i])
-            for( var j = 0; j< stateArray[i].length ; j++){
-              sum += stateArray[i][j];
-          }
-          }
-         
-          console.log(sum);
-          lightsArray.push(sum);
-        
+          var emptyMatrix = {
+            "dataType": "segment",
+            "data": [
+                0,
+                [
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ]
+            ]
+        }
         */
+          if(state != SocialRobotLedMatrixSegment.getEmptyLedMatrix() && state != 0){
+            lightsArray.push(1);
+          }
 
           break;
         case TypesEnum.TOUCH:

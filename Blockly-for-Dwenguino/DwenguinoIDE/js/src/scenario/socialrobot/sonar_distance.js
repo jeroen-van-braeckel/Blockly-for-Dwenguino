@@ -20,15 +20,16 @@ class SonarDistance {
 
 
     updateDistance(sonar) {
-        let distance = this.calculateDistance(sonar);
+        let distance = parseInt(this.calculateDistance(sonar));
+        if(distance<=0){distance = 0 }; //no negative distance possible
         sonar.changeSonarDistance(distance);
         console.log("distance from sonar " + sonar.getId() + " is " + distance);
     }
 
     updateAllDistances(){
         this._robot.forEach( (robotComponent) => {
-            if(robotComponent.constructor.name="SocialRobotSOnar"){
-            this.updateAllDistances(robotComponent);
+            if(robotComponent.constructor.name ==="SocialRobotSonar"){
+            this.updateDistance(robotComponent);
         }});
 }
 

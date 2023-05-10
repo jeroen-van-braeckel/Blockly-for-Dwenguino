@@ -88,7 +88,7 @@ class DwenguinoSimulationDraggable {
     target.setAttribute('data-y', y)
 
     try{
-      eventBus.dispatchEvent(EventsEnum.COMPONENTSMOVING); //TODO eventbus is hier undefined?
+      this._eventBus.dispatchEvent(EventsEnum.COMPONENTSMOVING);
     }
     catch(error){
     

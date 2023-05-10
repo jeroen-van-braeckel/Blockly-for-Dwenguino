@@ -21,7 +21,7 @@ class ScenarioEvent {
     }
 
     registerCallback(callback) {
-        console.log('calback registered '+ callback);
+        //console.log('callback registered '+ callback);
         this.callbacks.push(callback);
     }
 

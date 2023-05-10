@@ -105,10 +105,6 @@ class SocialRobotLedMatrixSegment extends AbstractRobotComponent{
             this.showDialog();
         });
 
-        
-
-        this._eventBus.registerEvent(EventsEnum.LIGHTON);
-        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
     }
 
     removeHtml(){

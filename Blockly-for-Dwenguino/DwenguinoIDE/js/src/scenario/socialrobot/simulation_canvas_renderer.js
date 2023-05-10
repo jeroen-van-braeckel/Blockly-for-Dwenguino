@@ -910,7 +910,7 @@ class SimulationCanvasRenderer {
      * @param {HTMLCanvasElement} canvas 
      */
     drawLightSensor(lightSensor, canvas){
-        if (canvas.getContext) {
+        if (canvas.getContext('2d')) {
 
             // in case the image isn't loaded yet.
             var self = this;
