@@ -32,16 +32,18 @@ class SocialRobotSonar extends RobotComponent {
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses) {
         let label = DwenguinoBlocklyLanguageSettings.translate(['sonarSliderLabel']) + " " + id;
         let sliderId = '' + TypesEnum.SONAR + id;
+        /*
         this._slider = new Slider(sliderId, 'sensor_options', 0, 200, 0, label, '', ' cm', 'sonar_slider');
 
         var self = this;
+        
         let sliderElement = this._slider.getSliderElement();
         sliderElement.oninput = function () {
             let myid = self.getId();
             self.changeSonarDistance(this.value, myid);
             self._slider.updateValueLabel(this.value);
         }
-
+*/
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SONAR, 'sonar', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, 'sim_sonar_canvas' + id);
 
 
@@ -51,6 +53,7 @@ class SocialRobotSonar extends RobotComponent {
     initComponentFromXml(eventBus, id, xml) {
         let label = DwenguinoBlocklyLanguageSettings.translate(['sonarSliderLabel']) + " " + id;
         let sliderId = '' + TypesEnum.SONAR + id;
+        /*
         this._slider = new Slider(sliderId, 'sensor_options', 0, 200, 0, label, '', ' cm', 'sonar_slider');
 
         var self = this;
@@ -60,7 +63,7 @@ class SocialRobotSonar extends RobotComponent {
             self.changeSonarDistance(this.value, myid);
             self._slider.updateValueLabel(this.value);
         }
-
+*/
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, id, xml);
 
         console.log(this);
@@ -69,12 +72,12 @@ class SocialRobotSonar extends RobotComponent {
 
     insertHtml() {
         var self = this;
-        let sliderElement = this._slider.getSliderElement();
+        /*let sliderElement = this._slider.getSliderElement();
         sliderElement.oninput = function () {
             let id = self.getId();
             self.changeSonarDistance(this.value, id);
             self._slider.updateValueLabel(this.value);
-        }
+        }*/
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['sonarOptions']));
 
 
@@ -93,7 +96,7 @@ class SocialRobotSonar extends RobotComponent {
 
     removeHtml() {
         super.removeHtml();
-        this.getSlider().remove();
+        //this.getSlider().remove();
     }
 
     getAllPossiblePins() {
@@ -101,12 +104,12 @@ class SocialRobotSonar extends RobotComponent {
     }
 
     getSlider() {
-        return this._slider;
+        //return this._slider;
     }
 
     reset() {
         super.reset();
-        this.getSlider().reset();
+        //this.getSlider().reset();
     }
 
     getOrientation(){ //returns in which direction the sensor is currently pointing

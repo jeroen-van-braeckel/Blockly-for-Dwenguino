@@ -23,7 +23,7 @@ class SocialRobotSoundSensor extends RobotComponent{
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
         let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
         let buttonId = '' + TypesEnum.SOUND + id;
-        this._button = new Button(buttonId, 'sensor_options', label);
+        //this._button = new Button(buttonId, 'sensor_options', label);
         
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SOUND, 'sound sensor', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, 'sim_sound_canvas' + id);
         
@@ -32,7 +32,7 @@ class SocialRobotSoundSensor extends RobotComponent{
     initComponentFromXml(eventBus, id, xml){
         let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
         let buttonId = '' + TypesEnum.SOUND + id;
-        this._button = new Button(buttonId, 'sensor_options', label);
+        //this._button = new Button(buttonId, 'sensor_options', label);
         
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, id, xml);
     }
@@ -84,7 +84,7 @@ class SocialRobotSoundSensor extends RobotComponent{
 
     removeHtml(){
         super.removeHtml();
-        this.getButton().remove();
+        //this.getButton().remove();
 
         //remove eventlisteners
         this._eventBus.removeEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
@@ -97,7 +97,7 @@ class SocialRobotSoundSensor extends RobotComponent{
 
     reset(){
         super.reset();
-        this._button.reset();
+        //this._button.reset();
     }
 
     getAllPossiblePins(){
@@ -105,6 +105,6 @@ class SocialRobotSoundSensor extends RobotComponent{
     }
 
     getButton(){
-        return this._button;
+        //return this._button;
     }
 }

@@ -58,6 +58,7 @@ class Slider {
     }
 
     insert(){
+        /*
         if (!document.getElementById(this.getSliderRangeId())) {
             if(!document.getElementById(this.getParentId())){
                 console.debug("The parent of slider " + this.getSliderId() + " does not exist");
@@ -75,6 +76,7 @@ class Slider {
         } else {
             console.debug('already exists');
         }
+        */
     }
 
     insertLabel(){
