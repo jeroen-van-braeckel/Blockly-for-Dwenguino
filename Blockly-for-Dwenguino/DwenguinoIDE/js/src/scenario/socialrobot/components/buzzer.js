@@ -95,7 +95,12 @@ class SocialRobotBuzzer extends RobotComponent {
                 this.audioStarted = false;
                 this.prevTone = 0;
                 //dispatch event for sound sensor
-                this._eventBus.dispatchEvent(EventsEnum.AUDIOSTOPPED);
+                try{
+                    this._eventBus.dispatchEvent(EventsEnum.AUDIOSTOPPED);
+                  }
+                  catch(error){
+                    //console.error("pir is not attached: " + error); 
+                  }
             }
         }
         // When tone changed, stop current tone and play new one
@@ -112,7 +117,12 @@ class SocialRobotBuzzer extends RobotComponent {
             this.osc.start(this.audiocontext.currentTime);
             this.audioStarted = true; 
             //dispatch event for sound sensor
-            this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
+            try{
+                this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
+              }
+              catch(error){
+                //console.error("pir is not attached: " + error); 
+              }
             
         }
     }

@@ -50,6 +50,9 @@ class SocialRobotServo extends BaseSocialRobotServo{
     }
 
     getAngle(){
+        if( Number(this._angle) !=  Number(this._prevAngle)){
+            //TODO servo event
+        }
         return this._angle;
     }
 

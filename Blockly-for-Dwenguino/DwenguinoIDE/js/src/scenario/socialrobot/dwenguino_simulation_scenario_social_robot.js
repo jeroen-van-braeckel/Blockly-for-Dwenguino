@@ -244,8 +244,8 @@ class DwenguinoSimulationScenarioSocialRobot extends DwenguinoSimulationScenario
     }
     }
     //Events to trigger sound-sensor
-    this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
-    this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
+    //this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
+    //this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
 
   }
 

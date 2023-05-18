@@ -26,7 +26,7 @@ class SocialRobotSoundSensor extends RobotComponent{
         //this._button = new Button(buttonId, 'sensor_options', label);
         
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SOUND, 'sound sensor', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, 'sim_sound_canvas' + id);
-        
+
     }
 
     initComponentFromXml(eventBus, id, xml){
@@ -60,8 +60,12 @@ class SocialRobotSoundSensor extends RobotComponent{
         }
         */
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['soundOptions']));
-       
+        this.initEventListeners();
+    }
 
+    initEventListeners(){
+        this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
+        this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
         // eventlisteners to provide interaction between components using the eventbus
         // for sound_sensor, add  this._eventBus.dispatchEvent(EventsEnum.AUDIO...); to noisy components (e.g. buzzer)
         this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
@@ -72,7 +76,6 @@ class SocialRobotSoundSensor extends RobotComponent{
         this._eventBus.addEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
             this.soundActionCallbacks(0);
         }); //TODO state juist wijzigen
-
     }
 
     soundActionCallbacks(state){
