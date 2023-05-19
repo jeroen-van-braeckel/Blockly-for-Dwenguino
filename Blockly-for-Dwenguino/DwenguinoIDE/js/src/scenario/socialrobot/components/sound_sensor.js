@@ -70,12 +70,12 @@ class SocialRobotSoundSensor extends RobotComponent{
         // for sound_sensor, add  this._eventBus.dispatchEvent(EventsEnum.AUDIO...); to noisy components (e.g. buzzer)
         this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
             this.soundActionCallbacks(1);
-        }); //TODO state juist wijzigen
+        });
 
                 
         this._eventBus.addEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
             this.soundActionCallbacks(0);
-        }); //TODO state juist wijzigen
+        }); 
     }
 
     soundActionCallbacks(state){

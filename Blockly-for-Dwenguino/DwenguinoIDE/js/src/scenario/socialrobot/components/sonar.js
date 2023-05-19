@@ -26,7 +26,7 @@ class SocialRobotSonar extends RobotComponent {
         super();
         BindMethods(this);
 
-        this.rotateCount = 0; //to continue rotating in multiples of 90°
+        this.rotateCount = 0; //to determine orientation, this.rotateCount%4 = 0 is North, =1 is East, =2 is South, =3 is West
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses) {
@@ -47,7 +47,7 @@ class SocialRobotSonar extends RobotComponent {
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SONAR, 'sonar', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, 'sim_sonar_canvas' + id);
 
 
-        console.log("offsetLeft: " + this.offsetLeft + "width" + this.getWidth() + "top" + this.getOffset() + ",height:" + this.getHeight()); //TODO verwijder
+        console.log("height= " + this.getHeight() + ", width = " + this.getWidth()); //TODO verwijder
     }
 
     initComponentFromXml(eventBus, id, xml) {
@@ -121,7 +121,7 @@ class SocialRobotSonar extends RobotComponent {
         var ctx = canvas.getContext("2d");
 
         ctx.clearRect(0,0,canvas.width,canvas.height);
-
+       
         this.rotateCount++;
         switch (this.getOrientation()) {
             case SonarEnum.NORTH:

@@ -88,7 +88,9 @@ class DwenguinoSimulationDraggable {
     target.setAttribute('data-y', y)
 
     try{
+      this._eventBus.dispatchEvent(EventsEnum.ALLDISTANCESCHANGED);
       this._eventBus.dispatchEvent(EventsEnum.COMPONENTSMOVING);
+      
     }
     catch(error){
     

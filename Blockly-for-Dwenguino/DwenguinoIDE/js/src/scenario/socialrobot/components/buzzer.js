@@ -121,7 +121,7 @@ class SocialRobotBuzzer extends RobotComponent {
                 this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
               }
               catch(error){
-                //console.error("pir is not attached: " + error); 
+                
               }
             
         }

@@ -243,9 +243,6 @@ class DwenguinoSimulationScenarioSocialRobot extends DwenguinoSimulationScenario
         console.log('Web Audio API is not supported in this browser');
     }
     }
-    //Events to trigger sound-sensor
-    //this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
-    //this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
 
   }
 

@@ -10,6 +10,7 @@ class ClickableRobotComponent extends BinaryInputRobotComponent {
     initEventListeners(id) {//register clicks as touch-events 
 
         //check if user action is a click or a "move" action, component should not change state on move action
+        ///TODO Pir still works?
         let isMoveAction = false;
         this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);
         this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {

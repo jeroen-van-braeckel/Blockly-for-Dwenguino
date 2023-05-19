@@ -10,7 +10,9 @@ const EventsEnum = {
     COMPONENTMOVED: 'componentmoved',
     LIGHTON: 'lighton',
     LIGHTOFF: 'lightoff',
-    DISTANCECHANGED:'distancechanged'
+    DISTANCECHANGED:'distancechanged',
+    ALLDISTANCESCHANGED:'alldistanceschanged'
+
 };
 Object.freeze(EventsEnum);
 

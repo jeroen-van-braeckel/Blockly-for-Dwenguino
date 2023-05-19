@@ -13,8 +13,8 @@ class SonarDistance {
         this._eventBus = eventbus;
         this._eventBus.registerEvent(EventsEnum.DISTANCECHANGED);
         this._eventBus.addEventListener(EventsEnum.DISTANCECHANGED, (sonar) => this.updateDistance(sonar));
-        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);
-        this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => this.updateAllDistances());
+        this._eventBus.registerEvent(EventsEnum.ALLDISTANCESCHANGED);
+        this._eventBus.addEventListener(EventsEnum.ALLDISTANCESCHANGED, () => this.updateAllDistances());
     }
 
 
