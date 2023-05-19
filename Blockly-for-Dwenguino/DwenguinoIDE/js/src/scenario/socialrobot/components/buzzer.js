@@ -2,10 +2,11 @@ import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js'
 import { RobotComponent } from './robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { SoundComponent } from './sound_component.js';
 
 export { SocialRobotBuzzer }
 
-class SocialRobotBuzzer extends RobotComponent {
+class SocialRobotBuzzer extends SoundComponent {
     static pinNames = {
         digitalPin: "digitalPin"
     }
@@ -18,7 +19,7 @@ class SocialRobotBuzzer extends RobotComponent {
         this.tone = 0;
         this.prevTone = 0;
         this.audiocontext = null;
-        this.audioStarted = false;
+        //this.audioStarted = false;
         this.killAudio = false;
     }
 
@@ -88,25 +89,18 @@ class SocialRobotBuzzer extends RobotComponent {
         }
         // stop tone when freq = 0
         if (this.tone == 0 && this.osc){
-            if (this.audioStarted){
+            if (this.getAudioStarted()){
                 this.osc.stop();
                 this.osc.disconnect(this.audiocontext.destination);
                 this.osc = null;
-                this.audioStarted = false;
+                this.setAudioStarted(false);
                 this.prevTone = 0;
-                //dispatch event for sound sensor
-                try{
-                    this._eventBus.dispatchEvent(EventsEnum.AUDIOSTOPPED);
-                  }
-                  catch(error){
-                    //console.error("pir is not attached: " + error); 
-                  }
             }
         }
         // When tone changed, stop current tone and play new one
         else if (this.tone != this.prevTone && this.osc){
             this.prevTone = this.tone;
-            if (this.audioStarted){
+            if (this.getAudioStarted()){
                 this.osc.stop()
                 this.osc.disconnect(this.audiocontext.destination);
                 this.osc = null;
@@ -115,15 +109,7 @@ class SocialRobotBuzzer extends RobotComponent {
             this.osc.connect(this.audiocontext.destination);
             this.osc.frequency.value = this.tone;
             this.osc.start(this.audiocontext.currentTime);
-            this.audioStarted = true; 
-            //dispatch event for sound sensor
-            try{
-                this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
-              }
-              catch(error){
-                
-              }
-            
+            this.setAudioStarted(true);
         }
     }
 
