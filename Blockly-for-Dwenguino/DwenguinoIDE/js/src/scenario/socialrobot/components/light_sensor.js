@@ -59,7 +59,6 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
     }
     */
 
-    
     initEventListeners(){
         this._eventBus.registerEvent(EventsEnum.LIGHTON);
         this._eventBus.registerEvent(EventsEnum.LIGHTOFF);

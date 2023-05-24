@@ -157,16 +157,13 @@ class RobotComponentsFactory {
           state = dwenguinoState.getIoPinState(dataPin);
           this._robot[i].setState(state);
           break;
-
         case TypesEnum.LEDMATRIXSEGMENT:
-
           let segmentDataPin = this._robot[i].getDataPin();
           state = dwenguinoState.getIoPinState(segmentDataPin);
           this._robot[i].setState(state);
-          if(typeof state !== 'undefined' && state != 0){
+          if (typeof state !== 'undefined' && state != 0) { //check if led matrix is generating light for the lightsensor
             lightsArray = lightsArray.concat(state.data.flat().flat()); //hack to be usable with "clear LED matrix" an "clear LED matrix <number>"-blocks which have different structures
           }
-
           break;
         case TypesEnum.TOUCH:
           pin = this._robot[i].getPin();
@@ -839,6 +836,10 @@ class RobotComponentsFactory {
    */
   addPir(pin = 12, state = 0, visible = true, width = 75, height = 75, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas pir_canvas') {
     this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.PIR));
+   if(this._numberOfComponentsOfType[TypesEnum.PIR] == 0){
+      this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
+      this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
+    }
     this.incrementNumberOf(TypesEnum.PIR);
     let id = this._numberOfComponentsOfType[TypesEnum.PIR];
 

@@ -5,7 +5,7 @@ import { DisplayDataTypesEnum, SocialRobotLedMatrix } from "../scenario/socialro
 
 /**
  * Contains all the functions that can be executed by the code that was created by the students.
- * Block translations can use these functions. If extra bocks are added, this is the place to add the 
+ * Block translations can use these functions. If extra blocks are added, this is the place to add the 
  * code behind those blocks.
 */
 class SimulationSandbox {
@@ -478,8 +478,11 @@ class SimulationSandbox {
     var gB = Math.trunc((colB - bB * 65536)/256);
     var rB = Math.trunc(colB - bB * 65536 - gB * 256);
 
-    return Math.abs(bA - bB) <= diff && Math.abs(gA - gB) <= diff && Math.abs(rA - rB) <= diff
+   
+
+    return Math.abs(bA - bB) <= diff && Math.abs(gA - gB) <= diff && Math.abs(rA - rB) <= diff;
   }
+
 
 }
 

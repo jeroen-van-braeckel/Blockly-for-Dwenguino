@@ -45,7 +45,7 @@ class SocialRobotPir extends BinaryInputRobotComponent {
             offsetTop,
             htmlClasses);
 
-        this.initEventListeners();
+        //this.initEventListeners();
     }
 
     initComponentFromXml(eventBus, id, xml) {
@@ -60,24 +60,40 @@ class SocialRobotPir extends BinaryInputRobotComponent {
             id,
             xml);
 
-        this.initEventListeners();
+        //this.initEventListeners();
     }
 
     getAllPossiblePins() {
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     }
 
+    insertHtml(){
+        super.insertHtml();
+        this.initEventListeners();
+       
+    }
+
+    
     initEventListeners() {//register when components are moving to set pir state
+        /*
         this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
         this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
+        */
         this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
-            this.setState(1);
-            console.log("pir is set to 1"); //TODO remve
+            if(this._isSimulationRunning){
+                this.setState(1);
+                //this.setImage(this._activeImageUrl);
+                console.log(this + " is set to 1"); //TODO remve
+            }
+           
         })
         this._eventBus.addEventListener(EventsEnum.COMPONENTMOVED, () => {
+            if(this._isSimulationRunning){
             this.setState(0);
-            console.log("pir is set to 0"); //TODO remove
+            //this.setImage(this._inactiveImageUrl);
+            console.log(this +" is set to 0"); //TODO remove
             //console.log("components stopped moving");
+            }
         })
     }
 
