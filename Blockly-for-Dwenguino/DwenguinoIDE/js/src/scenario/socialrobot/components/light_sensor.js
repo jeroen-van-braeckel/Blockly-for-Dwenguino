@@ -3,6 +3,7 @@ import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
 import { Slider } from '../../utilities/slider.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { TwoStateSensor } from './two_state_sensor.js';
 import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 
 export { SocialRobotLightSensor }
@@ -10,22 +11,20 @@ export { SocialRobotLightSensor }
 /**
  * @extends AbstractRobotComponent
  */
-class SocialRobotLightSensor extends BinaryInputRobotComponent{
+class SocialRobotLightSensor extends TwoStateSensor{
     static pinNames = {
         digitalPin: "digitalPin"
     }
 
-    constructor(firstOfType){
+    constructor(){
         super();
         BindMethods(this);
         this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/light_sensor.png`;
         this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/light_sensor.png`;
-        this.firstOfType = firstOfType;
     }
 
-    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
+    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType){
         super.initComponent(TypesEnum.LIGHT,
-            ['lightSensorButtonLabel'],
             ['lightSensorOptionsLabel'],
             "light_sensor",
             this._activeImageUrl,
@@ -40,26 +39,34 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
             height,
             offsetLeft,
             offsetTop,
-            htmlClasses)
+            htmlClasses, firstOfType, EventsEnum.LIGHTON, EventsEnum.LIGHTOFF)
+
+            this.initEventListeners();
+        
     }
+
+    /*
+    initComponentFromXml(eventBus, id, xml, firstOfType){
+
+
+        super.initComponentFromXml(eventBus,
+            TypesEnum.LIGHT,
+             ['lightSensorOptionsLabel'] ,
+             this._activeImageUrl,
+             this._inactiveImageUrl,
+             id,xml, firstOfType,  EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
+
+           this.initEventListeners();
+      
+    }
+
+    */
 
     insertHtml(){
         super.insertHtml();
-        this.initEventListeners();
-       
     }
 
-
-    /* TODO remove per sensor
-    removeHtml(){
-        super.removeHtml()
-        this._eventBus.removeEventListener(EventsEnum.LIGHTON, ()=> { 
-            this.lightActionCallbacks(1);});
-        this._eventBus.removeEventListener(EventsEnum.LIGHTOFF, ()=> { 
-            this.lightActionCallbacks(0);});
-    }
-    */
-
+/*
     initEventListeners(){
         if(this.firstOfType){
             this._eventBus.registerEvent(EventsEnum.LIGHTON);
@@ -82,18 +89,18 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
            }
         
     }
-
+*/
 
     initComponentFromXml(eventBus, id, xml){
-        let label = DwenguinoBlocklyLanguageSettings.translate(['lightSensorSliderLabel']) + " " + id;
         super.initComponentFromXml(eventBus,
             TypesEnum.LIGHT,
-            ['lightSensorButtonLabel'],
             ['lightSensorOptionsLabel'],
             this._activeImageUrl,
             this._inactiveImageUrl,
             id, 
-            xml)
+            xml, firstOfType,  EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
+
+            this.initEventListeners();
     }
 
 

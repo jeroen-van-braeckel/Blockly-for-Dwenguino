@@ -4,6 +4,7 @@ import { EventsEnum } from '../scenario_event.js';
 import { Button } from '../../utilities/button.js';
 import { RobotComponent } from './robot_component.js';
 import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
+import { TwoStateSensor } from './two_state_sensor.js';
 import BindMethods from "../../../utils/bindmethods.js"
 
 export { SocialRobotPir }
@@ -11,25 +12,23 @@ export { SocialRobotPir }
 /**
  * @extends AbstractRobotComponent
  */
-class SocialRobotPir extends BinaryInputRobotComponent {
+class SocialRobotPir extends TwoStateSensor {
 
     static pinNames = {
         digitalPin: "digitalPin"
     }
-    constructor(firstOfType) {
+    constructor() {
         super();
         BindMethods(this);
-        this.firstOfType = firstOfType;
     }
 
-    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses) {
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on.png`;
+    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType) {
+        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on_red_light.png`;
         let inactiveImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_off.png`;
-
+//this.firstOfType = firstOfType;
 
 
         super.initComponent(TypesEnum.PIR,
-            ['simulator', 'pir'],
             ['pirOptions'],
             "pir",
             activeImage,
@@ -44,24 +43,34 @@ class SocialRobotPir extends BinaryInputRobotComponent {
             height,
             offsetLeft,
             offsetTop,
-            htmlClasses);
+            htmlClasses, firstOfType,EventsEnum.COMPONENTSMOVING,EventsEnum.COMPONENTMOVED );
 
-        //this.initEventListeners();
+        this.initEventListeners();
     }
 
-    initComponentFromXml(eventBus, id, xml) {
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on.png`;
+    initComponentFromXml(eventBus, id, xml,firstOfType) {
+        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on_red_light.png`;
         let inactiveImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_off.png`;
+        this.firstOfType =  firstOfType;
+
+
+
+
         super.initComponentFromXml(eventBus,
             TypesEnum.PIR,
-            ['simulator', 'pir'],
             ['pirOptions'],
             activeImage,
             inactiveImage,
             id,
-            xml);
+            xml, firstOfType,EventsEnum.COMPONENTSMOVING,EventsEnum.COMPONENTMOVED );
 
-        //this.initEventListeners();
+
+
+
+
+
+            
+        this.initEventListeners();
     }
 
     getAllPossiblePins() {
@@ -70,11 +79,9 @@ class SocialRobotPir extends BinaryInputRobotComponent {
 
     insertHtml(){
         super.insertHtml();
-        this.initEventListeners();
-       
     }
 
-    
+    /*
     initEventListeners() {//register when components are moving to set pir state
         if(this.firstOfType){
             this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
@@ -96,7 +103,9 @@ class SocialRobotPir extends BinaryInputRobotComponent {
             //console.log("components stopped moving");
             }
         })
+
     }
+    */
 
     removeHtml(){
         super.removeHtml();
