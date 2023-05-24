@@ -121,6 +121,9 @@ class SocialRobotSonar extends RobotComponent {
         var ctx = canvas.getContext("2d");
 
         ctx.clearRect(0,0,canvas.width,canvas.height);
+        /*var tempHeight = canvas.height
+        canvas.height = canvas.width;
+        canvas.width = tempHeight;*/
        
         this.rotateCount++;
         switch (this.getOrientation()) {
@@ -129,6 +132,11 @@ class SocialRobotSonar extends RobotComponent {
                 break;
             case SonarEnum.EAST:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_EAST.png`);
+                /*var tempHeight = this.getHeight()
+                this.setHeight(this.getWidth());
+                this.setWidth(tempHeight);
+                this.setHtmlClasses('sim_canvas sonar_canvas_rotated');
+                */
                 break;
             case SonarEnum.SOUTH:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_SOUTH.png`);

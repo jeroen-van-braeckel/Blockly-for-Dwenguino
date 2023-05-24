@@ -842,8 +842,8 @@ class RobotComponentsFactory {
     let pins = {};
     pins[SocialRobotPir.pinNames.digitalPin] = pin + id - 1;
 
-    let pir = new SocialRobotPir(this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
-    pir.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses);
+    let pir = new SocialRobotPir();
+    pir.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses,this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
     this._robot.push(pir);
 
     this.renderer.initializeCanvas(this._robot, pir);
@@ -854,8 +854,8 @@ class RobotComponentsFactory {
     this.incrementNumberOf(TypesEnum.PIR);
     let id = this._numberOfComponentsOfType[TypesEnum.PIR];
 
-    let pir = new SocialRobotPir(this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
-    pir.initComponentFromXml(this._eventBus, id, xml);
+    let pir = new SocialRobotPir();
+    pir.initComponentFromXml(this._eventBus, id, xml,this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
     this._robot.push(pir);
 
     this.renderer.initializeCanvas(this._robot, pir);
@@ -989,7 +989,7 @@ class RobotComponentsFactory {
       pins[SocialRobotSoundSensor.pinNames.digitalPin] = id;
     }
     let soundSensor = new SocialRobotSoundSensor();
-    soundSensor.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses);
+    soundSensor.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, this._numberOfComponentsOfType[TypesEnum.SOUND] == 1);
     this._robot.push(soundSensor);
 
     this.renderer.initializeCanvas(this._robot, soundSensor);
@@ -1001,7 +1001,7 @@ class RobotComponentsFactory {
     let id = this._numberOfComponentsOfType[TypesEnum.SOUND];
 
     let soundSensor = new SocialRobotSoundSensor();
-    soundSensor.initComponentFromXml(this._eventBus, id, xml);
+    soundSensor.initComponentFromXml(this._eventBus, id, xml, this._numberOfComponentsOfType[TypesEnum.SOUND] == 1);
     this._robot.push(soundSensor);
 
     this.renderer.initializeCanvas(this._robot, soundSensor);
@@ -1038,8 +1038,8 @@ class RobotComponentsFactory {
     pins[SocialRobotLightSensor.pinNames.digitalPin] = pin + id;
 
     console.log(this._numberOfComponentsOfType[TypesEnum.LIGHT]);
-    let lightSensor = new SocialRobotLightSensor(this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
-    lightSensor.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses);
+    let lightSensor = new SocialRobotLightSensor();
+    lightSensor.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses,this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
     this._robot.push(lightSensor);
 
     this.renderer.initializeCanvas(this._robot, lightSensor);
@@ -1050,8 +1050,8 @@ class RobotComponentsFactory {
     this.incrementNumberOf(TypesEnum.LIGHT);
     let id = this._numberOfComponentsOfType[TypesEnum.LIGHT];
 
-    let lightSensor = new SocialRobotLightSensor(this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
-    lightSensor.initComponentFromXml(this._eventBus, id, xml);
+    let lightSensor = new SocialRobotLightSensor();
+    lightSensor.initComponentFromXml(this._eventBus, id, xml,this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
     this._robot.push(lightSensor);
 
     this.renderer.initializeCanvas(this._robot, lightSensor);

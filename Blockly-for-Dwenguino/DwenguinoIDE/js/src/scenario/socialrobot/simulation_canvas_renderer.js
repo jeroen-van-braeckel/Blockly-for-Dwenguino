@@ -613,7 +613,6 @@ class SimulationCanvasRenderer {
                 var ctx = canvas.getContext('2d');
                 ctx.drawImage(sonar.getImage(),0,0,sonar.getWidth(), sonar.getHeight()); 
             }
-
             var ctx = canvas.getContext('2d');
             ctx.drawImage(sonar.getImage(),0,0,sonar.getWidth(),sonar.getHeight());
         } else {

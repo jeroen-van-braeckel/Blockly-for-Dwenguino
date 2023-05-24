@@ -20,21 +20,22 @@ class SocialRobotSoundSensor extends RobotComponent{
         BindMethods(this);
     }
 
-    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
+    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType){
         let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
         let buttonId = '' + TypesEnum.SOUND + id;
         //this._button = new Button(buttonId, 'sensor_options', label);
-        
+        this.firstOfType = firstOfType;
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SOUND, 'sound sensor', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, 'sim_sound_canvas' + id);
-
+        this.initEventListeners();
     }
 
-    initComponentFromXml(eventBus, id, xml){
+    initComponentFromXml(eventBus, id, xml, firstOfType){
         let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
         let buttonId = '' + TypesEnum.SOUND + id;
         //this._button = new Button(buttonId, 'sensor_options', label);
-        
+        this.firstOfType = firstOfType
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, id, xml);
+        this.initEventListeners();
     }
 
     insertHtml(){
@@ -60,12 +61,16 @@ class SocialRobotSoundSensor extends RobotComponent{
         }
         */
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['soundOptions']));
-        this.initEventListeners();
+        
     }
 
     initEventListeners(){
+        if(this.firstOfType){
+
+     
         this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
         this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
+    }
         // eventlisteners to provide interaction between components using the eventbus
         // for sound_sensor, add  this._eventBus.dispatchEvent(EventsEnum.AUDIO...); to noisy components (e.g. buzzer)
         this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
