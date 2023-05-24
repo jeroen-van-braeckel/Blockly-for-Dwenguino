@@ -1,10 +1,8 @@
 import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
-import { Slider } from '../../utilities/slider.js';
 import BindMethods from "../../../utils/bindmethods.js"
 import { TwoStateSensor } from './two_state_sensor.js';
-import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 
 export { SocialRobotLightSensor }
 
@@ -41,7 +39,7 @@ class SocialRobotLightSensor extends TwoStateSensor{
             offsetTop,
             htmlClasses, firstOfType, EventsEnum.LIGHTON, EventsEnum.LIGHTOFF)
 
-            this.initEventListeners();
+            //this.initEventListeners();
         
     }
 
@@ -100,7 +98,7 @@ class SocialRobotLightSensor extends TwoStateSensor{
             id, 
             xml, firstOfType,  EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
 
-            this.initEventListeners();
+           // this.initEventListeners();
     }
 
 

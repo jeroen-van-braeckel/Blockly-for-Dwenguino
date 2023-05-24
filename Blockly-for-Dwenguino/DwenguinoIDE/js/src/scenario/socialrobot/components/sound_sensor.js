@@ -1,118 +1,69 @@
-import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
-import { RobotComponent } from  './robot_component.js'
 import { EventsEnum } from '../scenario_event.js';
-import { Button } from '../../utilities/button.js';
 import BindMethods from "../../../utils/bindmethods.js"
+import { TwoStateSensor } from './two_state_sensor.js';
 
 
 export { SocialRobotSoundSensor }
 
 /**
- * @extends AbstractRobotComponent
+ * @extends TwoStateSensor
  */
-class SocialRobotSoundSensor extends RobotComponent{
+class SocialRobotSoundSensor extends TwoStateSensor {
     static pinNames = {
         digitalPin: "digitalPin"
     }
-    constructor(){
-        super();  
+    constructor() {
+        super();
         BindMethods(this);
+        this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`;
+        this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`;
+
     }
 
-    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType){
-        let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
-        let buttonId = '' + TypesEnum.SOUND + id;
-        //this._button = new Button(buttonId, 'sensor_options', label);
-        this.firstOfType = firstOfType;
-        super.initComponent(eventBus, htmlClasses, id, TypesEnum.SOUND, 'sound sensor', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, 'sim_sound_canvas' + id);
-        this.initEventListeners();
+    initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType) {
+        super.initComponent(TypesEnum.SOUND,
+            ['soundOptions'],
+            'sound sensor',
+            this._activeImageUrl,
+            this._inactiveImageUrl,
+            'sim_sound_canvas' + id,
+            eventBus,
+            id,
+            pins,
+            state,
+            visible,
+            width,
+            height,
+            offsetLeft,
+            offsetTop,
+            htmlClasses,firstOfType, EventsEnum.AUDIOSTARTED, EventsEnum.AUDIOSTOPPED);
     }
 
-    initComponentFromXml(eventBus, id, xml, firstOfType){
-        let label = DwenguinoBlocklyLanguageSettings.translate(['soundButtonLabel']) + " " + id;
-        let buttonId = '' + TypesEnum.SOUND + id;
-        //this._button = new Button(buttonId, 'sensor_options', label);
-        this.firstOfType = firstOfType
-        super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/socialrobot/sound_sensor.png`, id, xml);
-        this.initEventListeners();
+    initComponentFromXml(eventBus, id, xml, firstOfType) {
+        super.initComponentFromXml(eventBus, 
+            TypesEnum.SOUND,
+            ['soundOptions'],
+            this._activeImageUrl,
+            this._inactiveImageUrl,
+             id, 
+             xml,firstOfType, EventsEnum.AUDIOSTARTED, EventsEnum.AUDIOSTOPPED);
     }
 
-    insertHtml(){
-        /*
-        
-        var self = this;
-
-
-        this._button.getButtonElement().onclick = function (){ //trigger door audio-element
-            self._button.update();
-
-            if (self._button.isActive()) {
-                self.setImage(self._image.src);
-                self.setState(1);
-                self._stateUpdated = true;
-                self._eventBus.dispatchEvent(EventsEnum.SAVE);
-            } else {
-                self.setImage(self._image.src);
-                self.setState(0);
-                self._stateUpdated = true; 
-                self._eventBus.dispatchEvent(EventsEnum.SAVE);
-            }
-        }
-        */
-        super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['soundOptions']));
-        
+    insertHtml() {
+        super.insertHtml();
     }
 
-    initEventListeners(){
-        if(this.firstOfType){
-
-     
-        this._eventBus.registerEvent(EventsEnum.AUDIOSTARTED);
-        this._eventBus.registerEvent(EventsEnum.AUDIOSTOPPED);
-    }
-        // eventlisteners to provide interaction between components using the eventbus
-        // for sound_sensor, add  this._eventBus.dispatchEvent(EventsEnum.AUDIO...); to noisy components (e.g. buzzer)
-        this._eventBus.addEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
-            this.soundActionCallbacks(1);
-        });
-
-                
-        this._eventBus.addEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
-            this.soundActionCallbacks(0);
-        }); 
-    }
-
-    soundActionCallbacks(state){
-        //console.log("sound sensor had been set to" + state);
-            this.setImage(this._image.src);
-            this.setState(state);
-            this._eventBus.dispatchEvent(EventsEnum.SAVE);
-    }
-
-    removeHtml(){
+    removeHtml() {
         super.removeHtml();
-        //this.getButton().remove();
-
-        //remove eventlisteners
-        this._eventBus.removeEventListener(EventsEnum.AUDIOSTARTED, ()=> { 
-            this.soundActionCallbacks(1);
-        });
-        this._eventBus.removeEventListener(EventsEnum.AUDIOSTOPPED, ()=> { 
-            this.soundActionCallbacks(0);
-        });
     }
 
-    reset(){
+    reset() {
         super.reset();
-        //this._button.reset();
     }
 
-    getAllPossiblePins(){
+    getAllPossiblePins() {
         return ["SOUND_1", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7"];
     }
 
-    getButton(){
-        //return this._button;
-    }
 }

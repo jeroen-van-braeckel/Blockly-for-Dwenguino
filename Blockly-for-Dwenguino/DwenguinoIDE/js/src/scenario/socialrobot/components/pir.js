@@ -20,19 +20,20 @@ class SocialRobotPir extends TwoStateSensor {
     constructor() {
         super();
         BindMethods(this);
+        this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on_red_light.png`;
+        this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_off.png`;
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, firstOfType) {
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on_red_light.png`;
-        let inactiveImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_off.png`;
-//this.firstOfType = firstOfType;
+
+        //this.firstOfType = firstOfType;
 
 
         super.initComponent(TypesEnum.PIR,
             ['pirOptions'],
             "pir",
-            activeImage,
-            inactiveImage,
+            this._activeImageUrl,
+            this._inactiveImageUrl,
             'sim_pir_canvas',
             eventBus,
             id,
@@ -43,41 +44,27 @@ class SocialRobotPir extends TwoStateSensor {
             height,
             offsetLeft,
             offsetTop,
-            htmlClasses, firstOfType,EventsEnum.COMPONENTSMOVING,EventsEnum.COMPONENTMOVED );
-
-        this.initEventListeners();
+            htmlClasses, firstOfType, EventsEnum.COMPONENTSMOVING, EventsEnum.COMPONENTMOVED);
+        //this.initEventListeners();
     }
 
-    initComponentFromXml(eventBus, id, xml,firstOfType) {
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_on_red_light.png`;
-        let inactiveImage = `${settings.basepath}DwenguinoIDE/img/socialrobot/pir_off.png`;
-        this.firstOfType =  firstOfType;
-
-
-
-
+    initComponentFromXml(eventBus, id, xml, firstOfType) {
+        this.firstOfType = firstOfType;
         super.initComponentFromXml(eventBus,
             TypesEnum.PIR,
             ['pirOptions'],
-            activeImage,
-            inactiveImage,
+            this._activeImageUrl,
+            this._inactiveImageUrl,
             id,
-            xml, firstOfType,EventsEnum.COMPONENTSMOVING,EventsEnum.COMPONENTMOVED );
-
-
-
-
-
-
-            
-        this.initEventListeners();
+            xml, firstOfType, EventsEnum.COMPONENTSMOVING, EventsEnum.COMPONENTMOVED);
+       // this.initEventListeners();
     }
 
     getAllPossiblePins() {
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     }
 
-    insertHtml(){
+    insertHtml() {
         super.insertHtml();
     }
 
@@ -107,7 +94,7 @@ class SocialRobotPir extends TwoStateSensor {
     }
     */
 
-    removeHtml(){
+    removeHtml() {
         super.removeHtml();
         //this._eventBus.removeEventListener(EventsEnum.COMPONENTSMOVING); //remove PIR eventlisteners //TODO id meegeven?
         //this._eventBus.removeEventListener(EventsEnum.COMPONENTMOVED);
