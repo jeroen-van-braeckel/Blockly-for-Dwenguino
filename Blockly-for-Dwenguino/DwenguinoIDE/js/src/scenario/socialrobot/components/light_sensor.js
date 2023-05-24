@@ -15,11 +15,12 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
         digitalPin: "digitalPin"
     }
 
-    constructor(){
+    constructor(firstOfType){
         super();
         BindMethods(this);
         this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/light_sensor.png`;
         this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/light_sensor.png`;
+        this.firstOfType = firstOfType;
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
@@ -60,9 +61,10 @@ class SocialRobotLightSensor extends BinaryInputRobotComponent{
     */
 
     initEventListeners(){
-        this._eventBus.registerEvent(EventsEnum.LIGHTON);
-        this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
-       
+        if(this.firstOfType){
+            this._eventBus.registerEvent(EventsEnum.LIGHTON);
+            this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
+            }
         this._eventBus.addEventListener(EventsEnum.LIGHTON, ()=> { 
             this.lightActionCallbacks(1);
         });     

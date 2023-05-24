@@ -836,17 +836,13 @@ class RobotComponentsFactory {
    */
   addPir(pin = 12, state = 0, visible = true, width = 75, height = 75, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas pir_canvas') {
     this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.PIR));
-   if(this._numberOfComponentsOfType[TypesEnum.PIR] == 0){
-      this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
-      this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
-    }
     this.incrementNumberOf(TypesEnum.PIR);
     let id = this._numberOfComponentsOfType[TypesEnum.PIR];
 
     let pins = {};
     pins[SocialRobotPir.pinNames.digitalPin] = pin + id - 1;
 
-    let pir = new SocialRobotPir();
+    let pir = new SocialRobotPir(this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
     pir.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses);
     this._robot.push(pir);
 
@@ -858,7 +854,7 @@ class RobotComponentsFactory {
     this.incrementNumberOf(TypesEnum.PIR);
     let id = this._numberOfComponentsOfType[TypesEnum.PIR];
 
-    let pir = new SocialRobotPir();
+    let pir = new SocialRobotPir(this._numberOfComponentsOfType[TypesEnum.PIR] == 1);
     pir.initComponentFromXml(this._eventBus, id, xml);
     this._robot.push(pir);
 
@@ -1034,13 +1030,15 @@ class RobotComponentsFactory {
  */
   addLightSensor(pin = 6, state = 0, visible = true, width = 100, height = 45, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas light_canvas') {
     this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.LIGHT));
+
     this.incrementNumberOf(TypesEnum.LIGHT);
     let id = this._numberOfComponentsOfType[TypesEnum.LIGHT];
 
     let pins = {};
     pins[SocialRobotLightSensor.pinNames.digitalPin] = pin + id;
 
-    let lightSensor = new SocialRobotLightSensor();
+    console.log(this._numberOfComponentsOfType[TypesEnum.LIGHT]);
+    let lightSensor = new SocialRobotLightSensor(this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
     lightSensor.initComponent(this._eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses);
     this._robot.push(lightSensor);
 
@@ -1052,7 +1050,7 @@ class RobotComponentsFactory {
     this.incrementNumberOf(TypesEnum.LIGHT);
     let id = this._numberOfComponentsOfType[TypesEnum.LIGHT];
 
-    let lightSensor = new SocialRobotLightSensor();
+    let lightSensor = new SocialRobotLightSensor(this._numberOfComponentsOfType[TypesEnum.LIGHT] == 1);
     lightSensor.initComponentFromXml(this._eventBus, id, xml);
     this._robot.push(lightSensor);
 

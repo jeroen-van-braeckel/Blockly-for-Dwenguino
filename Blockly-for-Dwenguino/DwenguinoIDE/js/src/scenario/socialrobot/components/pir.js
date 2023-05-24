@@ -16,9 +16,10 @@ class SocialRobotPir extends BinaryInputRobotComponent {
     static pinNames = {
         digitalPin: "digitalPin"
     }
-    constructor() {
+    constructor(firstOfType) {
         super();
         BindMethods(this);
+        this.firstOfType = firstOfType;
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses) {
@@ -75,10 +76,10 @@ class SocialRobotPir extends BinaryInputRobotComponent {
 
     
     initEventListeners() {//register when components are moving to set pir state
-        /*
-        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
-        this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
-        */
+        if(this.firstOfType){
+            this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);//change state to active
+            this._eventBus.registerEvent(EventsEnum.COMPONENTMOVED);//change state to inactive
+            }
         this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
             if(this._isSimulationRunning){
                 this.setState(1);
