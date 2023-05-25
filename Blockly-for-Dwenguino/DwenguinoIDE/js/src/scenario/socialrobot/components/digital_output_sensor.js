@@ -2,9 +2,9 @@ import { RobotComponent } from "./robot_component.js";
 import { EventsEnum } from '../scenario_event.js';
 import BindMethods from "../../../utils/bindmethods.js"
 
-export { TwoStateSensor };
+export { DigitalOutputSensor };
 
-class TwoStateSensor extends RobotComponent {
+class DigitalOutputSensor extends RobotComponent {
     constructor(activeValue = 1, inactiveValue = 0){
         super();
         BindMethods(this);

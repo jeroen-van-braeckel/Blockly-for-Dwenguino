@@ -1,9 +1,8 @@
-import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js'
 import { EventsEnum } from '../scenario_event.js'
-import { Slider } from '../../utilities/slider.js'
 import { RobotComponent } from './robot_component.js'
 import BindMethods from "../../../utils/bindmethods.js"
+import { AnalogOutputSensor } from './analog_output_sensor.js'
 
 export { SocialRobotSonar, SonarEnum}
 
@@ -15,9 +14,9 @@ const SonarEnum = {
   };
 
 /**
- * @extends RobotComponent
+ * @extends AnalogOutputSensor
  */
-class SocialRobotSonar extends RobotComponent {
+class SocialRobotSonar extends AnalogOutputSensor {
     static pinNames = {
         triggerPin: "triggerPin",
         echoPin: "echoPin"
@@ -25,59 +24,20 @@ class SocialRobotSonar extends RobotComponent {
     constructor() {
         super();
         BindMethods(this);
-
-        this.rotateCount = 0; //to determine orientation, this.rotateCount%4 = 0 is North, =1 is East, =2 is South, =3 is West
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses) {
-        let label = DwenguinoBlocklyLanguageSettings.translate(['sonarSliderLabel']) + " " + id;
-        let sliderId = '' + TypesEnum.SONAR + id;
-        /*
-        this._slider = new Slider(sliderId, 'sensor_options', 0, 200, 0, label, '', ' cm', 'sonar_slider');
-
-        var self = this;
-        
-        let sliderElement = this._slider.getSliderElement();
-        sliderElement.oninput = function () {
-            let myid = self.getId();
-            self.changeSonarDistance(this.value, myid);
-            self._slider.updateValueLabel(this.value);
-        }
-*/
         super.initComponent(eventBus, htmlClasses, id, TypesEnum.SONAR, 'sonar', pins, state, visible, width, height, offsetLeft, offsetTop, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, 'sim_sonar_canvas' + id);
-
-
-        console.log("height= " + this.getHeight() + ", width = " + this.getWidth()); //TODO verwijder
+        this.rotateCount = 0; //to determine orientation, this.rotateCount%4 = 0 is North, =1 is East, =2 is South, =3 is West
     }
 
     initComponentFromXml(eventBus, id, xml) {
-        let label = DwenguinoBlocklyLanguageSettings.translate(['sonarSliderLabel']) + " " + id;
-        let sliderId = '' + TypesEnum.SONAR + id;
-        /*
-        this._slider = new Slider(sliderId, 'sensor_options', 0, 200, 0, label, '', ' cm', 'sonar_slider');
-
-        var self = this;
-        let sliderElement = this._slider.getSliderElement();
-        sliderElement.oninput = function () {
-            let myid = self.getId();
-            self.changeSonarDistance(this.value, myid);
-            self._slider.updateValueLabel(this.value);
-        }
-*/
         super.initComponentFromXml(eventBus, `${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow.png`, id, xml);
-
-        console.log(this);
+        this.rotateCount = 0; //to determine orientation, this.rotateCount%4 = 0 is North, =1 is East, =2 is South, =3 is West
     }
 
 
     insertHtml() {
-        var self = this;
-        /*let sliderElement = this._slider.getSliderElement();
-        sliderElement.oninput = function () {
-            let id = self.getId();
-            self.changeSonarDistance(this.value, id);
-            self._slider.updateValueLabel(this.value);
-        }*/
         super.insertHtml(DwenguinoBlocklyLanguageSettings.translate(['sonarOptions']));
 
 
@@ -85,31 +45,20 @@ class SocialRobotSonar extends RobotComponent {
         var divId = "sim_sonar" + this.getId();
         var rotateId = "rotateIcon" + this.getId();
 
-        //document.getElementById(divId)
         $('#' + divId).append("<i id='" + rotateId + "' style='font-size:15px' class='fa'></i>");
         document.getElementById(rotateId).addEventListener('click', this.rotate);
     }
 
-    changeSonarDistance(value) {
-        this.setState(value);
-    }
-
     removeHtml() {
         super.removeHtml();
-        //this.getSlider().remove();
     }
 
     getAllPossiblePins() {
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "SONAR_1_TRIG", "SONAR_1_ECHO", "SONAR_2_TRIG", "SONAR_2_ECHO", "SONAR_3_TRIG", "SONAR_3_ECHO"];
     }
 
-    getSlider() {
-        //return this._slider;
-    }
-
     reset() {
         super.reset();
-        //this.getSlider().reset();
     }
 
     getOrientation(){ //returns in which direction the sensor is currently pointing

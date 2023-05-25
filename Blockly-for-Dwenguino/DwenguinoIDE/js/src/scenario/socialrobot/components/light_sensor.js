@@ -2,14 +2,14 @@ import { AbstractRobotComponent } from './abstract_robot_component.js'
 import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
 import BindMethods from "../../../utils/bindmethods.js"
-import { TwoStateSensor } from './two_state_sensor.js';
+import { DigitalOutputSensor } from './digital_output_sensor.js';
 
 export { SocialRobotLightSensor }
 
 /**
  * @extends AbstractRobotComponent
  */
-class SocialRobotLightSensor extends TwoStateSensor{
+class SocialRobotLightSensor extends DigitalOutputSensor{
     static pinNames = {
         digitalPin: "digitalPin"
     }

@@ -22,7 +22,7 @@ class SonarDistance {
     updateDistance(sonar) {
         let distance = parseInt(this.calculateDistance(sonar));
         if(distance<=0){distance = 0 }; //no negative distance possible
-        sonar.changeSonarDistance(distance);
+        sonar.setState(distance); //change the distance of the sonar which is the state of this sensor
         console.log("distance from sonar " + sonar.getId() + " is " + distance);
     }
 

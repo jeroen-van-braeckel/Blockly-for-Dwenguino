@@ -4,10 +4,10 @@ import { RobotComponent } from "./robot_component";
 import BindMethods from "../../../utils/bindmethods.js"
 import { off } from 'process';
 import { html } from '@microsoft/fast-element';
-import { TwoStateSensor } from './two_state_sensor.js';
+import { DigitalOutputSensor } from './digital_output_sensor.js';
 
 export { ClickableRobotComponent };
-class ClickableRobotComponent extends TwoStateSensor {
+class ClickableRobotComponent extends DigitalOutputSensor {
 
     constructor(activeValue = 1, inactiveValue = 0){
         super();

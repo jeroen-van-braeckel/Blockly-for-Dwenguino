@@ -1,15 +1,15 @@
 import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
 import BindMethods from "../../../utils/bindmethods.js"
-import { TwoStateSensor } from './two_state_sensor.js';
+import { DigitalOutputSensor } from './digital_output_sensor.js';
 
 
 export { SocialRobotSoundSensor }
 
 /**
- * @extends TwoStateSensor
+ * @extends DigitalOutputSensor
  */
-class SocialRobotSoundSensor extends TwoStateSensor {
+class SocialRobotSoundSensor extends DigitalOutputSensor {
     static pinNames = {
         digitalPin: "digitalPin"
     }
