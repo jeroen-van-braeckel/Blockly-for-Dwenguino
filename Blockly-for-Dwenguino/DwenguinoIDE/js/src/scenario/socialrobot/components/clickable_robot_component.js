@@ -1,11 +1,30 @@
-import { BinaryInputRobotComponent } from "./binary_input_robot_component";
-import { EventsEnum } from '../scenario_event.js';
 
+import { EventsEnum } from '../scenario_event.js';
+import { RobotComponent } from "./robot_component";
+import BindMethods from "../../../utils/bindmethods.js"
+import { off } from 'process';
+import { html } from '@microsoft/fast-element';
+import { TwoStateSensor } from './two_state_sensor.js';
 
 export { ClickableRobotComponent };
+class ClickableRobotComponent extends TwoStateSensor {
 
-class ClickableRobotComponent extends BinaryInputRobotComponent {
+    constructor(activeValue = 1, inactiveValue = 0){
+        super();
+        BindMethods(this);
+        this.activeValue = activeValue;
+        this.inactiveValue = inactiveValue;
+    }
 
+    initComponent(type, optionsMenuTranslationKey, componentName, activeImage, inactiveImage, componentCanvasClass, eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
+        super.initComponent(type, optionsMenuTranslationKey, componentName, activeImage, inactiveImage, componentCanvasClass, eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses, true, null,null)
+         this.initEventListeners(id);
+    }
+
+    initComponentFromXml(eventBus, type, optionsMenuTranslationKey, activeImage, inactiveImage, id, xml){
+        super.initComponentFromXml(eventBus, type, optionsMenuTranslationKey, activeImage, inactiveImage, id, xml, true,null, null)
+        this.initEventListeners(id);
+    }
 
     initEventListeners(id) {//register clicks as touch-events 
 

@@ -21,7 +21,10 @@ class TwoStateSensor extends RobotComponent {
         this.activeEventName = activeEventName;
         this.passiveEventName = passiveEventName;
         super.initComponent(eventBus, htmlClasses, id, type, componentName, pins, this.inactiveValue, visible, width, height, offsetLeft, offsetTop, inactiveImage, componentCanvasClass + id);
-        this.initEventListeners();
+        if(this.activeEventName !== null){
+            this.initEventListeners();
+        }
+       
     }
 
     initComponentFromXml(eventBus, type, optionsMenuTranslationKey, activeImage, inactiveImage, id, xml, firstOfType,activeEventName, passiveEventName){
@@ -32,7 +35,9 @@ class TwoStateSensor extends RobotComponent {
         this.activeEventName = activeEventName;
         this.passiveEventName = passiveEventName;
         super.initComponentFromXml(eventBus, inactiveImage, id, xml);
-        this.initEventListeners();
+        if(this.activeEventName !== null){
+            this.initEventListeners();
+        }
     }
 
     insertHtml(){

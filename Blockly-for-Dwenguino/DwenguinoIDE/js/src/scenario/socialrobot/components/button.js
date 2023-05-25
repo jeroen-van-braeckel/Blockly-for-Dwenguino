@@ -3,7 +3,6 @@ import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
 import { Button } from '../../utilities/button.js';
 import { RobotComponent } from './robot_component.js';
-import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 import BindMethods from "../../../utils/bindmethods.js"
 import { ClickableRobotComponent } from './clickable_robot_component.js';
 
@@ -19,20 +18,19 @@ class SocialRobotButton extends ClickableRobotComponent{
     constructor(){
         super(0, 1);
         BindMethods(this);
+        this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`;
+        this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
     }
 
     initComponent(eventBus, id, pins, state, visible, width, height, offsetLeft, offsetTop, htmlClasses){
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`;
-        let inactiveImage = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
         this.id = id;
         
         
         super.initComponent(TypesEnum.BUTTON, 
-            ['simulator', 'button'], 
             ['buttonOptions'], 
             "button", 
-            activeImage, 
-            inactiveImage, 
+            this._activeImageUrl, 
+            this._inactiveImageUrl, 
             'sim_button_canvas', 
             eventBus, 
             id, 
@@ -44,23 +42,16 @@ class SocialRobotButton extends ClickableRobotComponent{
             offsetLeft, 
             offsetTop, 
             htmlClasses);
-
-            this.initEventListeners(id); //call eventlisteners from ClickableRobotComponent
-    }
+         }
 
     initComponentFromXml(eventBus, id, xml){
-        let activeImage = `${settings.basepath}DwenguinoIDE/img/board/button_pushed.png`;
-        let inactiveImage = `${settings.basepath}DwenguinoIDE/img/board/button.png`;
         super.initComponentFromXml(eventBus,
             TypesEnum.BUTTON,
-            ['simulator', 'button'], 
             ['buttonOptions'],
-            activeImage,
-            inactiveImage,
+            this._activeImageUrl,
+            this._inactiveImageUrl,
             id,
             xml);
-
-        this.initEventListeners(id); //call eventlisteners from ClickableRobotComponent
     }
 
 

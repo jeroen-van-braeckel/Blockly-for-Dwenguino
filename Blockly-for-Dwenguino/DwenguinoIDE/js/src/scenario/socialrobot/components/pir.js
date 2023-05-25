@@ -3,7 +3,6 @@ import { TypesEnum } from '../robot_components_factory.js';
 import { EventsEnum } from '../scenario_event.js';
 import { Button } from '../../utilities/button.js';
 import { RobotComponent } from './robot_component.js';
-import { BinaryInputRobotComponent } from './binary_input_robot_component.js';
 import { TwoStateSensor } from './two_state_sensor.js';
 import BindMethods from "../../../utils/bindmethods.js"
 
