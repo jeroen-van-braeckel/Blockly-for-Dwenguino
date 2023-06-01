@@ -64,6 +64,10 @@ class DwenguinoSimulationRobotComponentsMenu {
         type: TypesEnum.LIGHT,
         maximumAmount: 2
       }, 
+      {
+        type: TypesEnum.LAMP,
+        maximumAmount: 1
+      }, 
     ]
   }
 

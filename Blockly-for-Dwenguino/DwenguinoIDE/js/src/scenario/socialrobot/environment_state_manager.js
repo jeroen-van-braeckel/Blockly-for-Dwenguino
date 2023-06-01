@@ -8,7 +8,8 @@ import { SocialRobotLedMatrixSegment } from './components/ledmatrix_segment.js';
 import { SocialRobotRgbLed } from './components/rgbled.js';
 import { SocialRobotLed } from './components/led.js';
 import { TypesEnum } from './robot_components_factory.js';
-ç
+import { EnvironmentLamp } from './components/environment_elements/environment_lamp.js';
+
 export { EnvironmentStateManager, SoundStateManager, LightStateManager }
 
 //class for all sensors which react to the overall state of the simulation environment, where multiple triggers are possible
@@ -24,7 +25,7 @@ class EnvironmentStateManager {
 
     update(robot) { //check all components in the map to see if one of them has an active state
         this.getTriggerComponents(robot);
-        console.log(this._triggerComponents);
+        //console.log(this._triggerComponents);
         this._overallState = this.checkState();
         this.sendEvent();
     }
@@ -43,7 +44,7 @@ class EnvironmentStateManager {
         }
         else {
             try {
-                this._eventBus.dispatchEvent(this._inactiveEventname);SoundStateManager
+                this._eventBus.dispatchEvent(this._inactiveEventname); SoundStateManager
             }
             catch (error) {
             }
@@ -86,16 +87,17 @@ class LightStateManager extends EnvironmentStateManager {
                     break;
                 case TypesEnum.LEDMATRIXSEGMENT:
                     let state = component.getState();
-                    console.log(state);
                     if (typeof state !== 'undefined' && state != 0) { //check if led matrix is generating light for the lightsensor
                         lightStates = lightStates.concat(state.flat().flat()); //hack to be usable with "clear LED matrix" an "clear LED matrix <number>"-blocks which have different structures
 
                     }
                     break;
                 case TypesEnum.RGBLED:
-                        lightStates = lightStates.concat(component.getState());
-                        break;
-
+                    lightStates = lightStates.concat(component.getState());
+                    break;
+                case TypesEnum.LAMP:
+                    lightStates.push(component.getState());
+                    break;
             }
 
         });
@@ -109,6 +111,6 @@ class LightStateManager extends EnvironmentStateManager {
     }
 
     getTriggerComponents(robot) {
-        this._triggerComponents = robot.filter(component => component instanceof SocialRobotLed || component instanceof SocialRobotLedMatrix || component instanceof SocialRobotLedMatrixSegment || component instanceof SocialRobotRgbLed);
+        this._triggerComponents = robot.filter(component => component instanceof SocialRobotLed || component instanceof SocialRobotLedMatrix || component instanceof SocialRobotLedMatrixSegment || component instanceof SocialRobotRgbLed ||component instanceof EnvironmentLamp);
     }
 }

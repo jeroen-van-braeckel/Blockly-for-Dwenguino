@@ -33,6 +33,7 @@ class SimulationCanvasRenderer {
     this.drawSoundSensors(robot);
     this.drawLightSensors(robot);
     this.drawBuzzers(robot);
+    this.drawEnvironmentLamps(robot);
   }
 
     /**
@@ -923,6 +924,33 @@ class SimulationCanvasRenderer {
         } else {
             console.log(canvas, "This canvas has no context");
         } 
+    }
+
+    drawEnvironmentLamp(environmentLamp, canvas){
+        if (canvas.getContext('2d')) {
+
+            // in case the image isn't loaded yet.
+            environmentLamp.getImage().onload = function() {
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(environmentLamp.getImage(),0,0,environmentLamp.getWidth(),environmentLamp.getHeight()); 
+            }
+
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(environmentLamp.getImage(),0,0,environmentLamp.getWidth(),environmentLamp.getHeight());
+            
+        } else {
+            console.log(canvas, "This canvas has no context");
+        } 
+    }
+
+
+    drawEnvironmentLamps(robot){
+        for(var i = 0; i < robot.length; i++){
+            if(robot[i].getType() == TypesEnum.LAMP){
+                let canvas = document.getElementById(robot[i].getCanvasId());
+                this.drawEnvironmentLamp(robot[i], canvas);
+            }
+        }
     }
 
     /**

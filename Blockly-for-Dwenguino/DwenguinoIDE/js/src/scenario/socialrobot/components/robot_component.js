@@ -120,10 +120,11 @@ class RobotComponent extends AbstractRobotComponent {
                 this.setOffset(offset);
             })
     
+            if(optionsLabel != "noOptions"){ //only create a dialog where needed
             simSensor.addEventListener('dblclick', () => { 
                 this.createComponentOptionsModalDialog(optionsLabel);
                 this.showDialog();
-            });
+            });  }
         }
        
 

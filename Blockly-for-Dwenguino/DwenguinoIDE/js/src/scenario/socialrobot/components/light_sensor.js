@@ -38,56 +38,15 @@ class SocialRobotLightSensor extends DigitalOutputSensor{
             offsetLeft,
             offsetTop,
             htmlClasses, firstOfType, EventsEnum.LIGHTON, EventsEnum.LIGHTOFF)
-
-            //this.initEventListeners();
         
     }
 
-    /*
-    initComponentFromXml(eventBus, id, xml, firstOfType){
-
-
-        super.initComponentFromXml(eventBus,
-            TypesEnum.LIGHT,
-             ['lightSensorOptionsLabel'] ,
-             this._activeImageUrl,
-             this._inactiveImageUrl,
-             id,xml, firstOfType,  EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
-
-           this.initEventListeners();
-      
-    }
-
-    */
 
     insertHtml(){
         super.insertHtml();
     }
 
-/*
-    initEventListeners(){
-        if(this.firstOfType){
-            this._eventBus.registerEvent(EventsEnum.LIGHTON);
-            this._eventBus.registerEvent(EventsEnum.LIGHTOFF);
-            }
-        this._eventBus.addEventListener(EventsEnum.LIGHTON, ()=> { 
-            this.lightActionCallbacks(1);
-        });     
-        this._eventBus.addEventListener(EventsEnum.LIGHTOFF, ()=> { 
-            this.lightActionCallbacks(0);
-        }); 
-    }
 
-    lightActionCallbacks(state){
-        console.log("light sensor had been set to " + state);
-           if(state != this.getState()){
-            this.setImage(this._image.src);
-            this.setState(state);
-            this._eventBus.dispatchEvent(EventsEnum.SAVE);
-           }
-        
-    }
-*/
 
     initComponentFromXml(eventBus, id, xml, firstOfType){
         super.initComponentFromXml(eventBus,
@@ -98,7 +57,6 @@ class SocialRobotLightSensor extends DigitalOutputSensor{
             id, 
             xml, firstOfType,  EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
 
-           // this.initEventListeners();
     }
 
 

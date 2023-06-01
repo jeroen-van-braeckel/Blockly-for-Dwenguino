@@ -18,6 +18,7 @@ import { SocialRobotLedMatrix } from "./components/ledmatrix.js"
 import { SocialRobotLedMatrixSegment } from "./components/ledmatrix_segment.js"
 import { SocialRobotBuzzer } from "./components/buzzer.js"
 import { SonarDistance } from "./sonar_distance.js";
+import { EnvironmentLamp } from "./components/environment_elements/environment_lamp.js"
 import { emptyArray } from "@microsoft/fast-element";
 import {  SoundStateManager, LightStateManager } from "./environment_state_manager.js";
 
@@ -44,6 +45,7 @@ const TypesEnum = {
   LIGHT: 'light',
   BUTTON: 'button',
   BUZZER: 'buzzer',
+  LAMP: 'lamp'
 };
 Object.freeze(TypesEnum);
 
@@ -213,7 +215,7 @@ class RobotComponentsFactory {
           this._robot[i].setTone(dwenguinoState.getTonePlaying());
       }
     }
-    //update the evironments with the updatet robot
+    //update the evironments with the updated robot
       this.soundStateManager.update(this._robot); 
       this.lightStateManager.update(this._robot);
     }
@@ -299,6 +301,9 @@ class RobotComponentsFactory {
       case TypesEnum.BUZZER:
         this.addBuzzer();
         break;
+        case TypesEnum.LAMP:
+          this.addEnvironmentLamp(); //TODO
+          break;
     }
   }
 
@@ -350,6 +355,9 @@ class RobotComponentsFactory {
       case TypesEnum.BUZZER:
         this.removeBuzzer();
         break;
+        case TypesEnum.LAMP:
+          this.removeEnvironmentLamp(); //TODO
+          break;
     }
   }
 
@@ -417,6 +425,8 @@ class RobotComponentsFactory {
         break;
       case TypesEnum.BUZZER:
         this.addBuzzerFromXml(data);
+        case TypesEnum.LAMP:
+        this.addEnvironmentLampFromXml(data);
     }
   }
 
@@ -885,7 +895,6 @@ class RobotComponentsFactory {
 
     this.renderer.initializeCanvas(this._robot, sonar);
 
-    //this.sonarDistance.updateDistance(sonar);
     try {
       this._eventBus.dispatchEvent(EventsEnum.SONARDISTANCECHANGED, sonar);
     }
@@ -1091,6 +1100,52 @@ class RobotComponentsFactory {
     buzzer.killComponentAudio();
     this.removeRobotComponentWithTypeAndId(TypesEnum.BUZZER, id);
   }
+
+
+
+
+   /**
+   * Add new lamp to the scenario
+   */
+
+   addEnvironmentLamp(width = 100, height = 45, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas lamp_canvas') {
+
+    this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.LAMP));
+    this.incrementNumberOf(TypesEnum.LAMP);
+    let id = this._numberOfComponentsOfType[TypesEnum.LAMP];
+
+    let pins = {}
+    let state = 0; // no light
+
+    let environmentLamp = new EnvironmentLamp();
+    environmentLamp.initComponent(this._eventBus, id, pins, state, true, width, height, offsetLeft, offsetTop, htmlClasses);
+    this._robot.push(environmentLamp);
+
+    this.renderer.initializeCanvas(this._robot, environmentLamp);
+  }
+
+  addEnvironmentLampFromXml(xml) {
+    this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.LAMP));
+    this.incrementNumberOf(TypesEnum.LAMP);
+    let id = this._numberOfComponentsOfType[TypesEnum.LAMP];
+
+    let environmentLamp = new EnvironmentLamp();
+    environmentLamp.initComponentFromXml(this._eventBus, id, xml);
+    this._robot.push(environmentLamp);
+
+    this.renderer.initializeCanvas(this._robot, environmentLamp);
+  }
+
+  /**
+  * Remove the most recently created lamp from the simulation container.
+  */
+  removeEnvironmentLamp() {
+    this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.removeRobotComponent, TypesEnum.LAMP));
+
+    let id = this._numberOfComponentsOfType[TypesEnum.LAMP];
+    this.removeRobotComponentWithTypeAndId(TypesEnum.LAMP, id);
+  }
+
 
   /**
    * Increment the number of a certain robot component in the scenario.

@@ -949,6 +949,10 @@ background-color: #ffffff;
     background-image: url("../img/socialrobot/buzzer.png");
 }
 
+#rc_lamp_img {
+    background-image: url("../img/socialrobot/lamp_active.png");
+}
+
 #rc_decoration_img {
     width: 52px;
     height: 102px;
