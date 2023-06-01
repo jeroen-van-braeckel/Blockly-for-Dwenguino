@@ -19,7 +19,7 @@ import { SocialRobotLedMatrixSegment } from "./components/ledmatrix_segment.js"
 import { SocialRobotBuzzer } from "./components/buzzer.js"
 import { SonarDistance } from "./sonar_distance.js";
 import { emptyArray } from "@microsoft/fast-element";
-import {  NoiseStateManager, LightStateManager } from "./environment_state_manager.js";
+import {  SoundStateManager, LightStateManager } from "./environment_state_manager.js";
 
 
 export { TypesEnum as TypesEnum, RobotComponentsFactory }
@@ -69,7 +69,7 @@ class RobotComponentsFactory {
     this.scenarioUtils = scenarioUtils;
     this.renderer = new SimulationCanvasRenderer();
     this.sonarDistance = new SonarDistance(this._robot, this._eventBus);
-    this.noiseStateManager = new NoiseStateManager(this._eventBus, EventsEnum.AUDIOSTARTED, EventsEnum.AUDIOSTOPPED);
+    this.soundStateManager = new SoundStateManager(this._eventBus, EventsEnum.AUDIOSTARTED, EventsEnum.AUDIOSTOPPED);
     this.lightStateManager = new LightStateManager(this._eventBus, EventsEnum.LIGHTON, EventsEnum.LIGHTOFF);
     for (const [type, t] of Object.entries(TypesEnum)) { //initialize array
       this._numberOfComponentsOfType[t] = 0;
@@ -117,7 +117,6 @@ class RobotComponentsFactory {
    * @param {BoardState} dwenguinoState 
    */
   updateScenarioState(dwenguinoState) {
-    //let lightsArray = []; //used to check if light is turned on 
     let soundsensorCount = 0;
 
     for (var i = 0; i < this._robot.length; i++) {
@@ -144,7 +143,6 @@ class RobotComponentsFactory {
         case TypesEnum.LED:
           pin = this._robot[i].getPin();
           this._robot[i].setState(dwenguinoState.getIoPinState(pin));
-          //lightsArray.push(parseInt(this._robot[i].getState()));
           break;
         case TypesEnum.RGBLED:
           let redPin = this._robot[i].getPin(SocialRobotRgbLed.pinNames.redPin);
@@ -152,7 +150,6 @@ class RobotComponentsFactory {
           let bluePin = this._robot[i].getPin(SocialRobotRgbLed.pinNames.bluePin);
           state = [dwenguinoState.getIoPinState(redPin), dwenguinoState.getIoPinState(greenPin), dwenguinoState.getIoPinState(bluePin)];
           this._robot[i].setState(state);
-          //lightsArray = lightsArray.concat(state);
           break;
         case TypesEnum.LEDMATRIX:
           let dataPin = this._robot[i].getDataPin();
@@ -163,11 +160,6 @@ class RobotComponentsFactory {
           let segmentDataPin = this._robot[i].getDataPin();
           state = dwenguinoState.getIoPinState(segmentDataPin);
           this._robot[i].setState(state);
-          /*
-          if (typeof state !== 'undefined' && state != 0) { //check if led matrix is generating light for the lightsensor
-            lightsArray = lightsArray.concat(state.data.flat().flat()); //hack to be usable with "clear LED matrix" an "clear LED matrix <number>"-blocks which have different structures
-          }
-          */
           break;
         case TypesEnum.TOUCH:
           pin = this._robot[i].getPin();
@@ -221,27 +213,8 @@ class RobotComponentsFactory {
           this._robot[i].setTone(dwenguinoState.getTonePlaying());
       }
     }
-
-    /*console.log(lightsArray);
-    if (lightsArray.reduce((accumulator, currentValue) => accumulator + currentValue,
-      0) > 0) {
-      try {
-        this._eventBus.dispatchEvent(EventsEnum.LIGHTON);
-      }
-      catch (error) {
-        //console.log(error);
-      }
-    }
-    else {
-      try {
-        this._eventBus.dispatchEvent(EventsEnum.LIGHTOFF);
-      }
-      catch (error) {
-        //console.log(error);
-      }
-    }
-    */
-      this.noiseStateManager.update(this._robot);
+    //update the evironments with the updatet robot
+      this.soundStateManager.update(this._robot); 
       this.lightStateManager.update(this._robot);
     }
 

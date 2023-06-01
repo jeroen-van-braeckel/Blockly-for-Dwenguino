@@ -8,8 +8,8 @@ import { SocialRobotLedMatrixSegment } from './components/ledmatrix_segment.js';
 import { SocialRobotRgbLed } from './components/rgbled.js';
 import { SocialRobotLed } from './components/led.js';
 import { TypesEnum } from './robot_components_factory.js';
-
-export { EnvironmentStateManager, NoiseStateManager, LightStateManager }
+ç
+export { EnvironmentStateManager, SoundStateManager, LightStateManager }
 
 //class for all sensors which react to the overall state of the simulation environment, where multiple triggers are possible
 //e.g. light can be produced by multiple sources, one active lightsource is enough to set the overall state to active
@@ -43,7 +43,7 @@ class EnvironmentStateManager {
         }
         else {
             try {
-                this._eventBus.dispatchEvent(this._inactiveEventname);
+                this._eventBus.dispatchEvent(this._inactiveEventname);SoundStateManager
             }
             catch (error) {
             }
@@ -51,7 +51,7 @@ class EnvironmentStateManager {
     }
 }
 
-class NoiseStateManager extends EnvironmentStateManager {
+class SoundStateManager extends EnvironmentStateManager {
 
     constructor(eventBus, activeEventName, inactiveEventname) {
         super(eventBus, activeEventName, inactiveEventname);
