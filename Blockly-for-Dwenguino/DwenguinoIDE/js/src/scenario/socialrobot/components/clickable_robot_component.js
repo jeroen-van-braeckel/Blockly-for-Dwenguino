@@ -29,10 +29,9 @@ class ClickableRobotComponent extends DigitalOutputSensor {
     initEventListeners(id) {//register clicks as touch-events 
 
         //check if user action is a click or a "move" action, component should not change state on move action
-        ///TODO Pir still works? -> only one registerevent in whole simulation
         let isMoveAction = false;
-        this._eventBus.registerEvent(EventsEnum.COMPONENTSMOVING);
-        this._eventBus.addEventListener(EventsEnum.COMPONENTSMOVING, () => {
+        this._eventBus.registerEvent(EventsEnum.MOVENOTCLICK);
+        this._eventBus.addEventListener(EventsEnum.MOVENOTCLICK, () => {
             isMoveAction = true; 
         })
 

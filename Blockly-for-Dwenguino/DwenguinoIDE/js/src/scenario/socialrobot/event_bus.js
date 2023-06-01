@@ -38,10 +38,6 @@ class EventBus {
         this.events[eventName].registerCallback(callback);
     };
 
-    removeEventListener(eventName, callback){
-        this.events[eventName].removeCallback(callback);
-    }
-
 
 }
 

@@ -89,7 +89,7 @@ class SocialRobotLightSensor extends DigitalOutputSensor{
     }
 */
 
-    initComponentFromXml(eventBus, id, xml){
+    initComponentFromXml(eventBus, id, xml, firstOfType){
         super.initComponentFromXml(eventBus,
             TypesEnum.LIGHT,
             ['lightSensorOptionsLabel'],

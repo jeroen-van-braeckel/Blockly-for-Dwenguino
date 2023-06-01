@@ -58,7 +58,7 @@ class SocialRobotServo extends BaseSocialRobotServo {
     }
 
     isMoving() { //fire event when servo angle changes, this is used for the pir
-        if (Number(this._angle) != Number(this._prevAngle)) { //TODO casting weg?
+        if (this._angle != this._prevAngle) {
             try {
                 this._eventBus.dispatchEvent(EventsEnum.COMPONENTSMOVING);
             }

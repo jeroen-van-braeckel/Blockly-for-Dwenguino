@@ -11,8 +11,8 @@ const EventsEnum = {
     LIGHTON: 'lighton',
     LIGHTOFF: 'lightoff',
     DISTANCECHANGED:'distancechanged',
-    ALLDISTANCESCHANGED:'alldistanceschanged'
-
+    ALLDISTANCESCHANGED:'alldistanceschanged',
+    MOVENOTCLICK:'movenotclick'
 };
 Object.freeze(EventsEnum);
 
@@ -27,7 +27,7 @@ class ScenarioEvent {
         this.callbacks.push(callback);
     }
 
-    removeCallback(callback) {
+    removeCallback(callback, id) {
         /*
         console.log("callabcks voor remove:");
         console.log(this.callbacks);

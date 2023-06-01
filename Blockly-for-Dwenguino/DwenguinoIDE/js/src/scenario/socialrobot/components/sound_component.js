@@ -8,32 +8,38 @@ class SoundComponent extends RobotComponent {
 
     constructor(){
         super();
-        this.audioStarted = false;
+        this.audioPlaying = false;
     }
     
 
-    setAudioStarted(started){
+    setAudioPlaying(started){
+      
         if(started){
-            this.audioStarted = true;
+            this.audioPlaying = true;
+            /*
             try{
-                this._eventBus.dispatchEvent(EventsEnum.AUDIOSTARTED);
+                this._eventBus.dispatchEvent(EventsEnum.audioPlaying);
               }
               catch(error){
                 //console.error("pir is not attached: " + error); 
               }
+              */
         }
         else{
-            this.audioStarted = false;
+            this.audioPlaying = false;
+            /*
             try{
                 this._eventBus.dispatchEvent(EventsEnum.AUDIOSTOPPED);
               }
               catch(error){
                 //console.error("pir is not attached: " + error); 
               }
+              */
         }
+        
     }
     
-    getAudioStarted(){
-        return this.audioStarted;
+    getAudioPlaying(){
+        return this.audioPlaying;
     }
 }

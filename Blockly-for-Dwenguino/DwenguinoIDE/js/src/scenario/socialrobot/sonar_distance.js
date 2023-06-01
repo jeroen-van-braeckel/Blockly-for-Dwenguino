@@ -172,8 +172,8 @@ class SonarDistance {
             return robotComponent.getCanvasId()
         }
         catch{
-            if (robotComponent.constructor.name === 'SocialRobotLcd') {
-                return 'sim_element_lcd_img'//TODO voor componenten die niet afleiden van abstractrobotcomponent
+            if (robotComponent.constructor.name === 'SocialRobotLcd') { //not defined for the lcd
+                return 'sim_element_lcd_img'
             }
             else {
                 console.log("unknown component");
