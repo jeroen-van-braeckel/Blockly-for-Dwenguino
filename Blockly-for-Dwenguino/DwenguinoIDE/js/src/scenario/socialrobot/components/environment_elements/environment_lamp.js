@@ -17,8 +17,8 @@ class EnvironmentLamp extends RobotComponent{
         
         this.activeValue = 1;
         this.inactiveValue = 0;
-        this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/led.png`; //TODO
-        this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/lamp_active.png`; //TODO
+        this._activeImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/lamp_active.png`; //TODO
+        this._inactiveImageUrl = `${settings.basepath}DwenguinoIDE/img/socialrobot/lamp_inactive.png`; //TODO
         
     }
 

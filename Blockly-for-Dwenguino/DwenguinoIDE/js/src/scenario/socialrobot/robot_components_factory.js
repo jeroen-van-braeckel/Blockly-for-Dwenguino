@@ -302,7 +302,7 @@ class RobotComponentsFactory {
         this.addBuzzer();
         break;
         case TypesEnum.LAMP:
-          this.addEnvironmentLamp(); //TODO
+          this.addEnvironmentLamp();
           break;
     }
   }
@@ -356,7 +356,7 @@ class RobotComponentsFactory {
         this.removeBuzzer();
         break;
         case TypesEnum.LAMP:
-          this.removeEnvironmentLamp(); //TODO
+          this.removeEnvironmentLamp(); 
           break;
     }
   }
@@ -1108,7 +1108,7 @@ class RobotComponentsFactory {
    * Add new lamp to the scenario
    */
 
-   addEnvironmentLamp(width = 100, height = 45, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas lamp_canvas') {
+   addEnvironmentLamp(width = 68, height = 100, offsetLeft = 5, offsetTop = 5, htmlClasses = 'sim_canvas lamp_canvas') {
 
     this.logger.recordEvent(this.logger.createEvent(EVENT_NAMES.addRobotComponent, TypesEnum.LAMP));
     this.incrementNumberOf(TypesEnum.LAMP);
