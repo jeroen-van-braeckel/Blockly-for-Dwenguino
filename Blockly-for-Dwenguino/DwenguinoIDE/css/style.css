@@ -1130,8 +1130,8 @@ background-color: #ffffff;
 }
 
 .pir_canvas{
-    width: 100px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     margin-top: 10px;
 }
 
@@ -1151,8 +1151,8 @@ background-color: #ffffff;
 }
 
 .touch_canvas{
-    margin-left: 25px;
-    width: 60px;
+    margin-left: 5px;
+    width: 50px;
     height: 60px;
 }
 
@@ -1170,19 +1170,34 @@ background-color: #ffffff;
 
 .sonar_canvas{
     width: 100px;
-    height: 58px;
+    height: 55px;
+}
+
+.sonar_canvas_rotated{
+    width: 55px;
+    height: 100px;
 }
 
 .sound_canvas{
     margin-left: 25px;
     width: 100px;
-    height: 60px;
+    height: 40px;
     margin-top: 10px;
+}
+
+.lamp_canvas{
+    width: 68px;
+    height: 100px;
+}
+
+.buzzer_canvas{
+    width: 50px;
+    height: 50px;
 }
 
 .light_canvas{
     width: 100px;
-    height: 60px;
+    height: 43px;
     margin-top: 10px;
 }
 

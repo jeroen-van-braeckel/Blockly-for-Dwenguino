@@ -61,6 +61,11 @@ class SocialRobotSonar extends AnalogOutputSensor {
         super.reset();
     }
 
+    setHtmlClasses(classes){ //update class in canvas-element in DOM
+        let canvas = document.getElementById(this.getCanvasId()).className=classes;
+        super.setHtmlClasses(classes);
+    }
+
     getOrientation(){ //returns in which direction the sensor is currently pointing
         const values = Object.values(SonarEnum);
         return values[this.rotateCount%4];
@@ -70,28 +75,40 @@ class SocialRobotSonar extends AnalogOutputSensor {
         var ctx = canvas.getContext("2d");
 
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        /*var tempHeight = canvas.height
+        var tempHeight = canvas.height
         canvas.height = canvas.width;
-        canvas.width = tempHeight;*/
+        canvas.width = tempHeight;
        
         this.rotateCount++;
         switch (this.getOrientation()) {
             case SonarEnum.NORTH:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_NORTH.png`);
+                var tempHeight = this.getHeight()
+                this.setHeight(this.getWidth());
+                this.setWidth(tempHeight);
+                this.setHtmlClasses('sim_canvas sonar_canvas');
                 break;
             case SonarEnum.EAST:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_EAST.png`);
-                /*var tempHeight = this.getHeight()
+                var tempHeight = this.getHeight()
                 this.setHeight(this.getWidth());
                 this.setWidth(tempHeight);
                 this.setHtmlClasses('sim_canvas sonar_canvas_rotated');
-                */
+                
                 break;
             case SonarEnum.SOUTH:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_SOUTH.png`);
+                var tempHeight = this.getHeight()
+                this.setHeight(this.getWidth());
+                this.setWidth(tempHeight);
+                this.setHtmlClasses('sim_canvas sonar_canvas');
                 break;
             case SonarEnum.WEST:
                 this.setImage(`${settings.basepath}DwenguinoIDE/img/board/sonar_with_arrow_WEST.png`);
+                var tempHeight = this.getHeight()
+                this.setHeight(this.getWidth());
+                this.setWidth(tempHeight);
+                this.setHtmlClasses('sim_canvas sonar_canvas_rotated');
                 break;
         }
         this._eventBus.dispatchEvent(EventsEnum.DISTANCECHANGED, this);
