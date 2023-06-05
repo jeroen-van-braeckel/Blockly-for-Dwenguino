@@ -30,7 +30,7 @@ class EnvironmentLamp extends RobotComponent{
 
     initComponentFromXml(eventBus, id, xml) {
         super.initComponentFromXml(eventBus,
-            this._imageUrl,
+            this._inactiveImageUrl,
             id,
             xml);
             this.initEventListener();

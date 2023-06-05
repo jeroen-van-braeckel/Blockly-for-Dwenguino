@@ -359,6 +359,8 @@ MSG.simulator = {
   buzzer: "Buzzer",
   buzzerDescription: "The buzzer on the Dwengo board can be used to <b>play a series of tones</b> or short sound fragments. The height of each tone is controlled by defining the <b>frequency</b> of the buzzer. Use a delay block to change the length of a tone.",
   decoration: "Decoration",
+  lamp: "lightbulb",
+  speaker: "speaker",
 };
 
 MSG.socialrobot = {

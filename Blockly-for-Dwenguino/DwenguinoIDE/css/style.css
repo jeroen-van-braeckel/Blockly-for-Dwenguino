@@ -953,6 +953,12 @@ background-color: #ffffff;
     background-image: url("../img/socialrobot/lamp_active.png");
 }
 
+#rc_speaker_img {
+    background-image: url("../img/socialrobot/speaker_active.png");
+}
+
+
+
 #rc_decoration_img {
     width: 52px;
     height: 102px;
@@ -1187,6 +1193,11 @@ background-color: #ffffff;
 
 .lamp_canvas{
     width: 68px;
+    height: 100px;
+}
+
+.speaker_canvas{
+    width: 74px;
     height: 100px;
 }
 

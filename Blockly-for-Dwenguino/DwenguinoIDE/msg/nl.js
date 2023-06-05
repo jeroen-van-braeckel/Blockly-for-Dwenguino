@@ -392,6 +392,8 @@ MSG.simulator = {
   on: "op",
   pin: "pin",
   pins: "pinnen",
+  lamp: "lamp",
+  speaker: "speaker",
 };
 
 MSG.socialrobot = {

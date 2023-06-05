@@ -379,6 +379,8 @@ MSG_FALLBACK.simulator = {
   on: "on",
   pin: "pin",
   pins: "pins",
+  lamp: "lightbulb",
+  speaker: "speaker",
 };
 
 MSG_FALLBACK.socialrobot = {

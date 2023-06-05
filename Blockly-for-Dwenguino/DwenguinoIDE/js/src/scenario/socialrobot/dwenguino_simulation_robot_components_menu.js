@@ -68,6 +68,10 @@ class DwenguinoSimulationRobotComponentsMenu {
         type: TypesEnum.LAMP,
         maximumAmount: 1
       }, 
+      {
+        type: TypesEnum.SPEAKER,
+        maximumAmount: 1
+      }, 
     ]
   }
 
