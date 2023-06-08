@@ -74,7 +74,7 @@ class SonarDistance {
                             (robotComponentLeftBorder < leftBorder && robotComponentRightBorder > rightBorder)) { //if component is wider than sonar & starts more to the left and ends more to the right
 
                             if ((upperBorder - robotComponentLowerBorder) < minDistance) {
-                                console.log(robotComponent);
+                                //console.log(robotComponent);
                                 minDistance = upperBorder - robotComponentLowerBorder;
                             }
                         }
